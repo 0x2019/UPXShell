@@ -127,14 +127,12 @@ object MainForm: TMainForm
     000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000
     000FF000000FF000000FF000000FF000000FF000000FF800001FFC00003FFF00
     00FFFFC003FFFFF03FFFFFF03FFFFFC3FFFFFFC3FFFF}
-  OldCreateOrder = False
   Position = poScreenCenter
   ShowHint = True
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 13
   object pnlAll: TPanel
     Left = 0
@@ -969,7 +967,6 @@ object MainForm: TMainForm
               Width = 97
               Height = 21
               Style = csDropDownList
-              ItemHeight = 13
               TabOrder = 0
               OnChange = cmbUPXChange
             end
@@ -1099,7 +1096,6 @@ object MainForm: TMainForm
             Font.Height = -11
             Font.Name = 'MS Sans Serif'
             Font.Style = []
-            ItemHeight = 13
             ParentFont = False
             TabOrder = 6
             OnChange = cmbLanguageChange
@@ -1934,6 +1930,12 @@ object MainForm: TMainForm
             Width = 302
             Height = 97
             Color = clInactiveCaptionText
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
             ReadOnly = True
             ScrollBars = ssVertical
             TabOrder = 1

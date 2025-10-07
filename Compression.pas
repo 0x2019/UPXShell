@@ -100,9 +100,6 @@ begin
   OldAppTitle         := Application.Title;
   CursorPos.x         := 0;
   CursorPos.y         := 0;
-  BracketOffsetStart  := 0;
-  upxProgressBarStart := 0;
-  upxProgressBarSize  := 0;
   upxTotalProgress    := 0;
   MultiRepeat         := TStringList.Create;
 

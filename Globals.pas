@@ -276,7 +276,6 @@ procedure IntergrateContext(const Options: TIntContextOptions);
 var
   Path:         string;
 	ActionValue:  string;
-	Reg:          TRegistry;
   RegValue:     TRegValue;
 begin
 	Path				:= WorkDir + 'UPXMIRACLE.exe "%1" %*';
@@ -308,13 +307,13 @@ end;
 function QueryTime(const GetTime: boolean; var StartTime: int64): string;
 var
   Frequency, EndTime: int64;
-  Time: string[5];
+  Time: string;
 begin
   if GetTime then
   begin
     QueryPerformanceFrequency(Frequency);
     QueryPerformanceCounter(EndTime);
-    Time   := FloatToStr((EndTime - StartTime) / Frequency);
+    Time   := FloatToStr((EndTime - StartTime) / Frequency, FormatSettings);
     Result := Time;
   end
   else

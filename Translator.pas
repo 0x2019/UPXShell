@@ -87,7 +87,7 @@ procedure AddMessage(Msg: string);
   function RemoveQuotes(const InStr: string): string;
   begin
     //Commented out the '''' single quote detection. This has been requested.
-    if (InStr <> '') and (InStr[1] in ['"'{, ''''}]) then
+    if (InStr <> '') and CharInSet(InStr[1], ['"', '''']) then
     begin
       Result := copy(InStr, 2, length(InStr) - 2);
     end
@@ -204,7 +204,7 @@ procedure ParseLine(const Line: string);
         else
         begin
           //Commented out the '''' single quote detection. This has been requested.
-          if (tKind = tkData) and (InStr[I] in ['"'{, ''''}]) then
+          if (tKind = tkData) and CharInSet(InStr[I], ['"', '''']) then
           begin
             //Do Nothing
           end

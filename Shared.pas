@@ -755,7 +755,7 @@ begin
   Result := True;
   for I := 1 to length(InStr) do
   begin
-    if not (InStr[I] in ['1'..'9', '0']) then
+    if not CharInSet(InStr[I], ['0'..'9']) then
     begin
       Result := False;
       break;

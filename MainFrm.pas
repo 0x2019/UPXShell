@@ -618,7 +618,7 @@ end;
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
   //Set the Global DecimalSeparator so it will be used everywhere since we need it to be a '.'
-  DecimalSeparator := '.';
+  FormatSettings.DecimalSeparator := '.';
 
   GetBuild; // Get the build information
   DrawGradient(imgGradient.Canvas, 255, imgGradient.Height,
@@ -1005,7 +1005,6 @@ begin
     Screen.Cursor := OldCursor;
     FreeAndNil(sInetStream);
     FreeAndNil(sInetStrings);
-    FreeAndNil(OldCursor);
   end;
 end;
 

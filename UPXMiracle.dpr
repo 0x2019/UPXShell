@@ -63,9 +63,6 @@ uses
   {$R Resources\WinXP.res}
   {$R Resources\UPX.res}
 {$ENDIF}
- var
-  x: longint;
-
 begin
 SplashScreen := TSplashScreen.Create(Application);
 SplashScreen.Show;

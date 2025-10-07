@@ -77,7 +77,7 @@ type
     FDirName:      string;
     FGlobFileName: string;
     //backup GlobFileName variable to restore it afterwards
-    FFileName:     string[5];
+    FFileName:     string;
     //    FFileList: array [1..2] of TStringList;
     FFiles:        array of TFilesRec;
     procedure FindFiles(APath: string);
@@ -325,7 +325,6 @@ begin
   CursorPos.x := 0;
   CursorPos.y := 0;
   Progress    := 0;
-  Offset      := 0;
   while True do
   begin
     ReadConsoleOutputCharacter(hStdOut, Line, 80, CursorPos, CharsRead);
@@ -352,11 +351,11 @@ begin
   begin
     CharsRead := 0;
     ReadConsoleOutputCharacter(hStdOut, ConsoleText, 80, CursorPos, CharsRead);
-    if Line[Offset] = '[' then
+    if ConsoleText[Offset] = '[' then
     begin
       for C := Offset + Progress + 1 to Offset + 66 do
       begin
-        if Line[C] = '*' then
+        if ConsoleText[C] = '*' then
         begin
           Inc(Progress);
         end
@@ -367,7 +366,7 @@ begin
       end;
       if Compress then
       begin
-        MyString := Line[69] + Line[70] + Line[71] + Line[72];
+        MyString := ConsoleText[69] + ConsoleText[70] + ConsoleText[71] + ConsoleText[72];
         MultiForm.sttRatio.Width := round((MultiForm.pgbCurrent.Width / 100) * round(strtofloat(MyString))) - 3;
       end;
       MultiForm.pgbCurrent.Progress := floor((Progress / 64) * 100);
