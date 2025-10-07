@@ -1,0 +1,40 @@
+UPX1 EXEFILE upx125.exe
+UPX2 EXEFILE upx203.exe
+UPX3 EXEFILE upx29x.exe
+UPX4 EXEFILE upx307.exe
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 3,0,6,0
+ PRODUCTVERSION 3,0,6,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x29L
+#else
+ FILEFLAGS 0x28L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Comments", "Created By Michael Hardy"
+            VALUE "CompanyName", "Created By Michael Hardy"
+            VALUE "FileDescription", "Cool Executable Compressor!"
+            VALUE "FileVersion", "v3.6 Open Source Edition!"
+            VALUE "InternalName", "UPX MIRACLE"
+            VALUE "LegalCopyright", "Copyright © 2010 - 2011"
+            VALUE "LegalTrademarks", "Property of ® Michael Hardy"
+            VALUE "OriginalFilename", "UPX MIRACLE.exe"
+            VALUE "PrivateBuild", "This Exe Version was Built Using Delphi 7"
+            VALUE "ProductName", "® Hardy Creations UPX SHELL"
+            VALUE "ProductVersion", "Version 3.6 - FreeW@re Edition!"
+            VALUE "SpecialBuild", "This Executable Version Was Built on November 13th, 2010"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

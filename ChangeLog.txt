@@ -1,0 +1,17 @@
+2007-01-31:
+* Fixed a HUGE Bug, which could cause not to be able to start executables anymore. I am very very sorry for this.
+
+2007-01-30:
+* Fixed Commands window.
++ Updated UPX to version v2.92 Beta
++ Some small code changes.
+
+TODO:
+Refactor this whole project.
+
+2007-01-23:
+* Fixed Help Button.
+* Fixed 'Clear History' Translation.
+* Fixed UPX Version Combobox.
+* Fixed Bug in file scrambler with files smaller then ~11KB
++ Updated UPX to versions v2.03 and v2.91 Beta

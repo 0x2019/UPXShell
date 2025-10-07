@@ -1,0 +1,44 @@
+Hex Offset version nr upx files:
+--------------------------------
+{261}		{E0}$Id: UPX 0.xx	(0.60 > 0.62)
+{259}		{E0}$Id: UPX 0.xx	(0.70 > 0.71)
+{281}		$Id: UPX 0.xx		(0.72)
+{320}		$Id: UPX 0.xx		(0.80 > 0.94)
+{39D}		$Id: UPX 0.xx		(0.99 > 1.07)
+{3DB}		1.xx			(1.08 > 1.93)
+{1F0}		1.xx/2.xx		(1.94 > 2.90)	({C0}2.xx{00}UPX!)
+
+
+The offset is in HEX and is the start of the first number, not for $Id: etc...
+
+
+Detected by PEiD:
+---------------------
+{108} v1.00 Org: {80}
+Entrypoint:  00034480
+File Offset: 00014880
+First Bytes: 60,BE,00,00
+
+
+Not detected by PEiD:
+---------------------
+{108} v1.00 New: {7F}
+Entrypoint:  0003447F
+File Offset: 0001487F
+First Bytes: 64,60,BE,00
+
+
+Detected by PEiD:
+---------------------
+{110} v1.25 Org: {80}
+Entrypoint:  00046480
+File Offset: 0001E880
+First Bytes: 60,BE,00,80
+
+
+Not detected by PEiD:
+---------------------
+{110} v1.25 New: {7F}
+Entrypoint:  0004647F
+File Offset: 0001E87F
+First Bytes: 00,60,BE,00

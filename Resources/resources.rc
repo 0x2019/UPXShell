@@ -1,0 +1,66 @@
+//*****************************************************************************\
+//
+//    UPX Shell
+//    Copyright © 2000-2006, Michael Hardy
+//
+//    This program is free software; you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation; either version 2 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program; if not, write to the Free Software
+//    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+//
+//\*****************************************************************************/
+
+
+// compile this resource file using windres.exe utility from the MinGW project
+
+#include "version.inc"
+#include "winver.inc"
+#include "GNUGPL.inc"
+
+LANGUAGE 0, 0
+
+1 VERSIONINFO
+ FILEVERSION     VERSION_MAJOR,VERSION_MINOR,VERSION_BUILD,VERSION_RELEASE
+ PRODUCTVERSION  VERSION_MAJOR,VERSION_MINOR,VERSION_BUILD,VERSION_RELEASE
+ FILEFLAGSMASK   VS_FFI_FILEFLAGSMASK
+ FILEFLAGS       VS_FF_PRERELEASE
+ FILEOS          VOS__WINDOWS32
+ FILETYPE        VFT_APP
+ FILESUBTYPE     VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+//        BLOCK "040904b0"
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "Created By Michael Hardyt\0"
+            VALUE "FileDescription", "The Best Executable Compressor!\0"
+            VALUE "FileVersion", FILE_VERSION_STRING "\0"
+            VALUE "InternalName", "UPXShell.exe\0"
+            VALUE "LegalCopyright", "Copyright © 2000-2011 By Michael Hardy\0"
+            VALUE "OriginalFilename", "UPXShell.exe\0"
+            VALUE "ProductName", "UPX Shell 3.4.x.x\0"
+            VALUE "ProductVersion", PRODUCT_VERSION_STRING "\0"
+            VALUE "Comments", "This product is a GUI shell for the famous Ultimate Packer for eXecutables (UPX). Distributed as Free Software. Powered by Delphi 7.\0"
+            VALUE "SpecialBuild", "Updated, Optimized and Maintained By Michael Hardy\0"
+            VALUE "License", GNUGPL "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 0, 0x0400, 0, 0x0809, 1252, 0x0419, 1251, 0x0422, 1251
+    END
+END
+
+1 24 "WinXP.manifest.inc"
+MAINICON ICON "mainicon.ico"
+#include "UPX.rc"

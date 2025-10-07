@@ -1,0 +1,20 @@
+{*******************************}
+{**    UPX Shell ToDo List    **}
+{**    Changed: 2005-09-06    **}
+{*******************************}
+
+{#Done1 Add command-line function to (Un)Intergrate into the context menu.
+        This becouse of the different languages the context menu item could be.
+        And changing (Un)installer to support these languages isn't a nice idea.}
+
+{#Done2 Change most Registry Read/Write to use ReadKey() and StoreKey().}
+
+{#ToDo2 Think about re-writing the compression unit, so i can be used by MainForm and MultiForm.
+        This should reduce the code/exe-size. And also speedup UPX Shell.}
+        
+{#ToDo3 Add function to write copyright info into the compressed file.}
+
+{#ToDo1 Refactor entire project. Create Classes, etc...
+        Currently several functions are called on several places which could be merged i think.
+        Also, mostly you can't see to where the function belongs to.
+        Some code is redundant}

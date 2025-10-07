@@ -1,0 +1,128 @@
+UPX Shell History
+
+Legend:
+! Changes
++ Added features
+- Removed features
+* Enhancements (speed or design)
+= Bug fixes
+? Future plans
+_________________________________________________________________________
+_________________________________________________________________________
+
+Changes in UPX Shell v3.2.*.**** - 2005-09-02 (ALPHA/BETA)
+=  Fixed a Memoryleak and Bug with (Un)Register UPX Shell with compressable extensions.
+=  Fixed UPX error detection. It reported success while there whas an error.
+!* New translation files where mailed with the all the right strings in it.
+!* Added the UPX v1.93 commands to the commands form.
+!  Changed the commands form back to the "old-look" (No more titlebar).
+?  Re-Write/Re-Think the compression/upx.exe routine. Atm the MultiPack form uses a diffrent code.
+   It would be more efficent and will reduce size, and boost the speed when it is one single unit.
+
+
+Changes in UPX Shell v3.2.*.**** - 2005-08-26 (ALPHA/BETA)
+-  Removed the FastStrings unit. It wasn't realy a speedboost.
+
+
+Changes in UPX Shell v3.2.*.**** - 2005-08-24 (ALPHA/BETA)
+=  Re-Saved all the program files, becouse of some strange things regarding UNIX Line-Endings.
+*  Added FastStrings to speedup some parts of the program, mainly the translation part.
+   FastStrings is created by Peter Morris | support@droopyeyes.com | http://www.droopyeyes.com.
+=  Fixed some translation issues, regarding the ' sign being removed.
+   And the Caption of the MultiPack window wasn't translated.
+   Also the label "Time Taken" in the MultiPack window wasn't translated correctly.
+
+
+Changes in UPX Shell v3.2.*.**** - 2005-08-17 (ALPHA/BETA)
+!  Changed mail-adres of BlackDex
+=  Changed some Charset settings to DEFAUL.
+!  Added new "Chinese (Simplified).lng" (Thanks to yykcctdq)
+*  Added new "Chinese (Traditional - BIG5).lng" (Thanks to Li Bojun)
+*  Added new "Chinese (Traditional - GB18030).lng" (Thanks to Li Bojun)
+!  Added new "Deutsch.lng" (Thanks to Benjamin Pahlke)
+!  Added new "Brazilian.lng"  (Thanks to Euler German)
+=* Optimized/Removed/Commented-Out some code etc..
+
+
+Changes in UPX Shell v3.2.1.2007 - 2005-07-20
+*  Added UPX v1.25 Stable
++* Added UPX v1.9x Beta and its new options
++  Added a new update module
++  Made context-menu language changable
+*= Some other fixes and enhancements
+_________________________________________________________________________
+_________________________________________________________________________
+
+Changes in UPX Shell 3.0.6.1502
++ Polish l18n file
++ Czech l18n file
+= Other fixes as usual
+
+Changes in UPX Shell 3.0.4.1208
+* UPX 1.24 included
+= Some minor fixes
+? Support for unstable 1.9x versions comming soon
+! The build number is now changed the way Microsoft likes it (BuildDay*100+BuildOfTheDay)
+
+Changes in UPX Shell 3.0.1.84
+= Fixed a hidden bug concerning new UPX 1.21 (it could make the application to seem to hang sometimes)
+
+Changes in UPX Shell 3.0.1.84
+* Just an update to include the new UPX 1.21
+
+Changes in UPX Shell 3.0.1.83
+* MultiPack was fixed and redesigned to provide greater feedback
+* Further algorithm optimizations
+
+Changes in UPX Shell 3.0.0.40
++ Some minor design changes
+* Optimized many internal procesing algorithms
+? Unless I get any ideas/suggestions/bugs from you, this IS going to be last revision
+
+Changes in UPX Shell 3.0.0.25
+= Fixed every problem concerning multipack engine that I knew of:)
+
+Changes in UPX Shell 3.0.0.20
++ Brand-new setup. I hope you like it.. It has also inspired me to write a setup manager with only ~40 KB stub overhead. Expect first release in late February '02
++ UPX Shell has English, Russian, German and Chinese (traditional and simplified) interface languages :)
+= Fixed most interface bugs, now supporting WinXP theming :)
+= Some MultiPack engine fixes. This part is still beta! I'm expecting bug reports from you guys....
+
+Changes in UPX Shell 3.0.0.16
+= Fixed some interface bugsChanges in UPX Shell 3.0.0.13.
++ Totally recoded UPX Shell from scratch.
+* Improved speed of all internal functions.
+= Fixed most of all known bugsChanges in UPX Shell 2.2.1.116.
+* Some minor MultiPack fixes.
+= Fixed a problem with getting an error on some machines at starting UPX Shell.
+
+Changes in UPX Shell 2.2.1.114
++ Just one but the most wanted update.
+* UPX Shell can now recurse through your directories to compress everything that can be! But when running to compress your entire Windows directory,
+  halt for a second and remember: this is the first release of MultiPack, so if your system warps to the sandy planet of Arrakis:), 
+  don't blame me, but kindly send your bug report.
+* Translation engine has undergone some serious fixing.
+* Some minor fixes and speedups.
+
+Changes in UPX Shell 2.1.1.111
++ UPX Shell now works under WinNT.
++ Localizer - a simple tool for translation of UPX Shell Language files is nowavailable at http://www.iontrooper.com.
+* Fixed settings to improve look of UPX Shell under WinMe, WinNT and WinXP systems.
+= Fixed some minor bugs and memory leaks, improved overall speed.
+
+Changes in UPX Shell 2.0.1.106
++ Translation subsystem was totally redesigned. You can now localize UPX Shell by simply translating 'YourLanguage.lng' file.
+  Details on translation are located in 'Translations.txt' file in UPX Shell directory.
+= Fixed that damn bug when Drag&Dropping files.
+
+Changes in UPX Shell 2.0.0.101
++ I've finally started this log file
++ 'Integrate into context menu' option in Advanced options added
+* 'Scrambling...' picture now replaces that old 'Sorry...' text
+* Captions of all forms (excluding the main one, of course :) are removed
+* Some redundant cycles removed, the Shell uses fewer resources
+* No third part components are now being used except for Multilizer (for translation)
+* The project has moved to Delphi 6, so the Shell might be available for Linux pretty soon :-)
+* You can now add your own languages by editing UPXShell.mpr file. Editor for these files is available at: http://www.multilizer.com
+  If you want these translations to be included in UPX Shell then mail them to me to mail@iontrooper.com
+= Internet update feature for all UPX, UPX Shell and Scrambler are now working perfectly

@@ -1,0 +1,25 @@
+HOW TO TRANSLATE UPX SHELL!
+--------------------------
+
+-Copy English.lng to file named Lang.lng (where Lang is your language) into UPX Shell directory.
+-Translate english strings after = (equal) sign (ATTENTION: do NOT change anything before the = sign, as this may lead to system crash).
+-When finished translating run UPX Shell and your language should appear on the dropdown box in Options tab, and make sure that everything is translated.
+-When assured that everything looks perfect submit the translated file to mail@iontrooper.com.
+-That's it. You can start using UPX Shell in your favourite language.
+
+Hint: for almost all of the items you can add a 'hint'. This is how you do it:
+lets say you have this line in .lng file:
+MainForm.lblCompressor.Caption=Win32 EXE, DLL compressor
+and you want to add a hint which would popup when you move a mouse pointer over it, so you add a new line to that .lng file:
+MainForm.lblCompressor.Hint=UPX RULEZ!!!
+
+____________________________________________________________________________________________________________________________
+
+
+NOTE BY BLACKDEX:
+-----------------
+You can download an program called IniTranslator (Also on soureforge), which can help you translate it much easyer.
+Website: http://initranslator.sourceforge.net/
+
+Open as original file the English.lng and select cancel to create a new one.
+Or select the language file you which to change/update.

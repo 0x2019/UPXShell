@@ -1,0 +1,6 @@
+#define VERSION_MAJOR   3
+#define VERSION_MINOR   6
+#define VERSION_BUILD   0
+#define VERSION_RELEASE 2010
+#define FILE_VERSION_STRING  "3.6.0.2010"
+#define PRODUCT_VERSION_STRING  "3.6.0-beta"
