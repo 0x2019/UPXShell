@@ -34,8 +34,7 @@ program UPXMiracle;
 
          UPDATED BY BLACKDEX 2004-2006
 }
-{%ToDo 'UPXMiracle.todo'}
-{%File 'News.txt'}
+
 uses
   Forms,
   MainFrm in 'MainFrm.pas' {MainForm},
@@ -46,8 +45,7 @@ uses
   Shared in 'Shared.pas',
   Translator in 'Translator.pas',
   Compression in 'Compression.pas',
-  UPXScrambler in 'UPXScrambler.pas',
-  splash in 'splash.pas' {SplashScreen};
+  UPXScrambler in 'UPXScrambler.pas';
 
 //LocalizerFrm in 'LocalizerFrm.pas' {LocalizerForm};
 
@@ -64,11 +62,6 @@ uses
   {$R Resources\UPX.res}
 {$ENDIF}
 begin
-SplashScreen := TSplashScreen.Create(Application);
-SplashScreen.Show;
-SplashScreen.Update;
-while SplashScreen.tmrMainTimer.Enabled do Application.ProcessMessages;
-
   Application.Initialize;
   Application.Title := 'UPX Miracle';
   Application.HelpFile := '';
@@ -77,9 +70,6 @@ while SplashScreen.tmrMainTimer.Enabled do Application.ProcessMessages;
   Application.CreateForm(TSetupForm, SetupForm);
   //Application.CreateForm(TLocalizerForm, LocalizerForm);
   Application.ShowMainForm := True;
-         SplashScreen.Hide;
-SplashScreen.Free; // menghapus form splash scren dr memory
-
 	Application.Run;
 end.
 
