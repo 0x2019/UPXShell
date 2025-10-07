@@ -117,16 +117,6 @@ type
     tbsOptions:   TTabSheet;
     trbCompressLvl: TTrackBar;
     pnlAction:    TPanel;
-    tbsUpdate:    TTabSheet;
-    pnlUpdate:    TPanel;
-    lblOnlineVersionCap: TLabel;
-    lblDownloadCap: TLabel;
-    lblDownload:  TLabel;
-    lblOnlineVersion: TLabel;
-    btnChkUpdate: TButton;
-    lblReleaseDateCap: TLabel;
-    lblReleaseDate: TLabel;
-    rchChangeLog: TRichEdit;
     btnLocalizerMode: TButton;
     pnlLocalization: TPanel;
     btnSaveAs:    TButton;
@@ -160,8 +150,6 @@ type
     procedure imgHistoryMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: integer);
     procedure FormShow(Sender: TObject);
     procedure HyperClick(Sender: TObject);
-    procedure btnChkUpdateClick(Sender: TObject);
-    procedure lblDownloadClick(Sender: TObject);
     procedure cmbUPXChange(Sender: TObject);
   private
     procedure HistoryPopUp(Sender: TObject); // Declaration of History popup handler
@@ -913,110 +901,6 @@ begin
 end;
 
 {** **}
-procedure TMainForm.btnChkUpdateClick(Sender: TObject);
-
-//Inline function to get the update file
-  function GetInetFile(const fileURL: string; strStream: TStringStream): boolean;
-  const
-    BufferSize = 1024;
-  var
-    hSession:  HInternet;
-    hURL:      HInternet;
-    Buffer:    array[1..BufferSize] of byte;
-    BufferLen: DWORD;
-    sAppName:  string;
-  begin
-    sAppName := ExtractFileName(Application.ExeName);
-    hSession := InternetOpen(PChar(sAppName), INTERNET_OPEN_TYPE_PRECONFIG, nil, nil, 0);
-    try
-      hURL := InternetOpenURL(hSession, PChar(fileURL), nil, 0, 0, 0);
-      try
-        repeat
-          begin
-            InternetReadFile(hURL, @Buffer, SizeOf(Buffer), BufferLen);
-            strStream.WriteBuffer(Buffer, BufferLen);
-          end;
-        until BufferLen = 0;
-        Result := True;
-      finally
-        InternetCloseHandle(hURL)
-      end;
-    finally
-      InternetCloseHandle(hSession)
-    end;
-  end;
-
-  //Main procedure
-var
-  sUpdateFile:  string;
-  sInetStream:  TStringStream;
-  sInetStrings: TStrings;
-  OldCursor:    TCursor;
-begin
-  sUpdateFile := 'http://hardyfoundation.com/upx/update/update.upd';
-
-  sInetStream  := TStringStream.Create('');
-  sInetStrings := TStringList.Create;
-  rchChangeLog.Lines.Clear;
-  OldCursor    := screen.Cursor;
-  try
-    Screen.Cursor := crHourGlass;
-    if GetInetFile(sUpdateFile, sInetStream) then
-    begin
-      sInetStrings.Clear;
-      sInetStrings.Delimiter     := '=';
-      sInetStrings.QuoteChar     := '"';
-      sInetStrings.DelimitedText := sInetStream.DataString;
-
-      if (sInetStrings[sInetStrings.IndexOf('UPDATEFILE') + 1] = 'UPXMIRACLE') then
-      begin
-        lblOnlineVersion.Caption := sInetStrings[sInetStrings.IndexOf('release') + 1] +
-          '.' + sInetStrings[sInetStrings.IndexOf('build') + 1];
-        lblReleaseDate.Caption   := sInetStrings[sInetStrings.IndexOf('date') + 1];
-
-        if (sInetStrings[sInetStrings.IndexOf('build') + 1] > IntToStr(BuildInfo.biBuild)) or
-          ((sInetStrings[sInetStrings.IndexOf('build') + 1] >= IntToStr(BuildInfo.biBuild)) and
-          (sInetStrings[sInetStrings.IndexOf('release') + 1] >
-          BuildInfo.biNoBuild)) then
-        begin
-          lblDownload.Caption    := sInetStrings[sInetStrings.IndexOf('url') + 1];
-          lblDownload.Font.Color := clBlue;
-          lblDownload.Enabled    := True;
-          rchChangeLog.Lines.Add(sInetStrings[sInetStrings.IndexOf('changelog') + 1]);
-        end
-        else
-        begin
-          rchChangeLog.Lines.Add('There is no new update avalable.');
-          lblDownload.Font.Color := clWindowText;
-          lblDownload.Enabled    := False;
-        end;
-      end
-      else
-      begin
-        rchChangeLog.Lines.Add('Error retereving updates!' + #13#10 +
-          'Invalide or missing update file.');
-      end;
-    end
-    else
-    begin
-      rchChangeLog.Lines.Add('Error retereving updates!');
-    end;
-  finally
-    Screen.Cursor := OldCursor;
-    FreeAndNil(sInetStream);
-    FreeAndNil(sInetStrings);
-  end;
-end;
-
-{** **}
-procedure TMainForm.lblDownloadClick(Sender: TObject);
-begin
-  if lblDownload.Enabled then
-  begin
-    ShellExecute(0, 'open', PChar(lblDownload.Caption), nil, nil, SW_SHOW);
-  end;
-end;
-
 
 procedure TMainForm.btnLocalizerModeClick(Sender: TObject);
 begin

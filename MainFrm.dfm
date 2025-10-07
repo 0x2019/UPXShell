@@ -1782,7 +1782,7 @@ object MainForm: TMainForm
           Left = 0
           Top = 0
           Width = 390
-          Height = 139
+          Height = 179
           Align = alClient
           BevelOuter = bvLowered
           TabOrder = 0
@@ -1840,105 +1840,6 @@ object MainForm: TMainForm
               TabOrder = 1
               OnClick = btnEditMessagesClick
             end
-          end
-        end
-      end
-      object tbsUpdate: TTabSheet
-        Caption = 'Update'
-        ImageIndex = 5
-        object pnlUpdate: TPanel
-          Left = 0
-          Top = 0
-          Width = 390
-          Height = 179
-          Align = alClient
-          BevelOuter = bvLowered
-          TabOrder = 0
-          object lblOnlineVersionCap: TLabel
-            Left = 4
-            Top = 4
-            Width = 70
-            Height = 13
-            Caption = 'Online version:'
-          end
-          object lblDownloadCap: TLabel
-            Left = 4
-            Top = 20
-            Width = 70
-            Height = 13
-            Caption = 'Download site:'
-          end
-          object lblDownload: TLabel
-            Tag = -1
-            Left = 100
-            Top = 20
-            Width = 285
-            Height = 13
-            Cursor = crHandPoint
-            AutoSize = False
-            Caption = 'N/A'
-            Enabled = False
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            ShowAccelChar = False
-            OnClick = lblDownloadClick
-          end
-          object lblOnlineVersion: TLabel
-            Tag = -1
-            Left = 100
-            Top = 4
-            Width = 81
-            Height = 13
-            AutoSize = False
-            Caption = 'N/A'
-          end
-          object lblReleaseDateCap: TLabel
-            Left = 200
-            Top = 4
-            Width = 66
-            Height = 13
-            Hint = 'Year - Month - Day'
-            Caption = 'Release date:'
-          end
-          object lblReleaseDate: TLabel
-            Tag = -1
-            Left = 312
-            Top = 4
-            Width = 73
-            Height = 13
-            Hint = 'Year - Month - Day'
-            AutoSize = False
-            Caption = 'N/A'
-          end
-          object btnChkUpdate: TButton
-            Left = 312
-            Top = 88
-            Width = 73
-            Height = 45
-            Caption = 'Check for updates'
-            TabOrder = 0
-            WordWrap = True
-            OnClick = btnChkUpdateClick
-          end
-          object rchChangeLog: TRichEdit
-            Left = 4
-            Top = 36
-            Width = 302
-            Height = 97
-            Color = clInactiveCaptionText
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 1
           end
         end
       end

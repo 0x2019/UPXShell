@@ -273,7 +273,6 @@ begin
     begin
 			Result := Result + ' -d';
 		end;
-		MainForm.rchChangeLog.Text := Result;
 		//MessageDlg('End Result: '+ Result, mtWarning, [mbOK], 0);
   end;
 end;
