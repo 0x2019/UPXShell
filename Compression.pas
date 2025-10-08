@@ -92,6 +92,8 @@ var
   ProgressValue: integer;
   CompressSize: string;
   MultiRepeat:  TStringList;
+  MultiCurrentIndex: integer;
+  MultiTotalCount: integer;
   CursorPos:    TCoord;
   CharsRead:    DWord;
   Line:         TLine;
@@ -143,11 +145,24 @@ begin
       if IsMultiProgress then
       begin
         Split('/', Trim(Copy(Line, BracketOffsetStart - 7, 6)), MultiRepeat);
-        if upxTotalProgress = 0 then
+        if (MultiRepeat.Count >= 2) and
+          TryStrToInt(MultiRepeat[0], MultiCurrentIndex) and
+          TryStrToInt(MultiRepeat[1], MultiTotalCount) then
         begin
-          upxTotalProgress := (StrToInt(MultiRepeat[1]) * upxProgressBarSize);
+          if upxTotalProgress = 0 then
+          begin
+            upxTotalProgress := (MultiTotalCount * upxProgressBarSize);
+          end;
+          upxCurrentProgress := (((MultiCurrentIndex - 1) * upxProgressBarSize) + upxCurProgressBarPos);
+        end
+        else
+        begin
+          if upxTotalProgress = 0 then
+          begin
+            upxTotalProgress := upxProgressBarSize;
+          end;
+          upxCurrentProgress := upxCurProgressBarPos;
         end;
-        upxCurrentProgress := (((StrToInt(MultiRepeat[0]) - 1) * upxProgressBarSize) + upxCurProgressBarPos);
       end
       //ELSE NO MULTIPROGRESS
       else
