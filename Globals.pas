@@ -86,7 +86,7 @@ type
 
 const
   resUPXVersions: array[TUPXVersions] of string = ('UPX1', 'UPX2', 'UPX3', 'UPXC');
-  aUPXVersions: array[TUPXVersions] of string = ('UPX 1.25', 'UPX 2.03', 'UPX 2.92b', 'Custom');
+  aUPXVersions: array[TUPXVersions] of string = ('UPX 3.09', 'UPX 4.24', 'UPX 5.0.2', 'Custom');
 
 
 type
@@ -436,7 +436,7 @@ begin
             biBuild   := LoWord(pInfo^.dwFileVersionLS);
             biFull    := Format('%d.%d.%d.%d', [biMajor, biMinor, biRelease, biBuild]);
             biNoBuild := Format('%d.%d.%d', [biMajor, biMinor, biRelease]);
-            biCute    := Format('%d.%d%d', [biMajor, biMinor, biRelease]);
+            biCute    := Format('%d.%d.%d', [biMajor, biMinor, biRelease]);
           end;
         end;
       end;

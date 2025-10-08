@@ -11,11 +11,9 @@ object CommandsForm: TCommandsForm
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
   ShowHint = True
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object pgcCommands: TPageControl
     Left = 0
@@ -27,7 +25,7 @@ object CommandsForm: TCommandsForm
     Align = alClient
     TabOrder = 0
     object tbsUPX1: TTabSheet
-      Caption = 'UPX v1.25'
+      Caption = 'UPX 3.09'
       object mmoUPX1: TMemo
         Left = 0
         Top = 0
@@ -43,11 +41,11 @@ object CommandsForm: TCommandsForm
         Font.Name = 'Courier New'
         Font.Style = []
         Lines.Strings = (
-          'Version: v1.25'
+          'Version: 3.09'
           '--------------'
           'Commands:'
           '  -1     compress faster                   -9    compress better'
-          '  --best compress best (can be very slow for big files)'
+          '  --best compress best (can be slow for big files)'
           
             '  -d     decompress                        -l    list compressed' +
             ' file'
@@ -74,21 +72,42 @@ object CommandsForm: TCommandsForm
             'default]'
           
             '  --overlay=strip     strip any extra data attached to the file ' +
-            '[dangerous]'
+            '[DANGEROUS]'
           '  --overlay=skip      don'#39't compress a file with an overlay'
           ''
           'Options for dos/com:'
           '  --8086              make compressed com work on any 8086'
+          '  --all-methods       try all available compression methods'
+          '  --all-filters       try all available preprocessing filters'
           ''
           'Options for dos/exe:'
           '  --8086              make compressed exe work on any 8086'
           '  --no-reloc          put no relocations in to the exe header'
+          '  --all-methods       try all available compression methods'
           ''
           'Options for dos/sys:'
           '  --8086              make compressed sys work on any 8086'
+          '  --all-methods       try all available compression methods'
+          '  --all-filters       try all available preprocessing filters'
+          ''
+          
+            '  --all-filters       Compress the program several times, using ' +
+            'all'
+          
+            '                      available preprocessing filters. This may ' +
+            'improve'
+          
+            '                      the compression ratio in some cases, but u' +
+            'sually'
+          
+            '                      the default filter gives the best results ' +
+            'anyway.'
           ''
           'Options for djgpp2/coff:'
           '  --coff              produce COFF output [default: EXE]'
+          ''
+          '  --all-methods       try all available compression methods'
+          '  --all-filters       try all available preprocessing filters'
           ''
           'Options for watcom/le:'
           '  --le                produce LE output [default: EXE]'
@@ -100,13 +119,13 @@ object CommandsForm: TCommandsForm
           '  --compress-icons=1      compress all but the first icon'
           
             '  --compress-icons=2      compress all but the first icon direct' +
-            'ory '
+            'ory'
           '[default]'
           '  --compress-resources=0  do not compress any resources at all'
           '  --strip-relocs=0        do not strip relocations'
           '  --strip-relocs=1        strip relocations [default]'
           ''
-          '  file.. executables to (de)compress'
+          'file..   executables to (de)compress'
           ''
           
             'This version supports: dos/exe, dos/com, dos/sys, djgpp2/coff, w' +
@@ -126,7 +145,7 @@ object CommandsForm: TCommandsForm
       end
     end
     object tbsUPX2: TTabSheet
-      Caption = 'UPX v2.03'
+      Caption = 'UPX 4.24'
       ImageIndex = 1
       object mmoUPX2: TMemo
         Left = 0
@@ -143,7 +162,7 @@ object CommandsForm: TCommandsForm
         Font.Name = 'Courier New'
         Font.Style = []
         Lines.Strings = (
-          'Version: v2.03'
+          'Version: 4.24'
           '--------------'
           'Commands:'
           '  -1     compress faster                   -9    compress better'
@@ -205,6 +224,7 @@ object CommandsForm: TCommandsForm
           
             '  --8-bit             uses 8 bit size compression [default: 32 b' +
             'it]'
+          '  --8mib-ram          PSone has 8 MiB ram available'
           '  --console-run       enables client/host transfer compatibility'
           
             '  --no-align          don'#39't align to 2048 bytes [enables: --cons' +
@@ -228,12 +248,14 @@ object CommandsForm: TCommandsForm
           '  --compress-icons=1      compress all but the first icon'
           
             '  --compress-icons=2      compress all but the first icon direct' +
-            'ory '
+            'ory'
+          '  --compress-icons=3      compress all icons'
           '[default]'
           '  --compress-resources=0  do not compress any resources at all'
           
             '  --keep-resource=list    do not compress resources specified by' +
             ' list'
+          '  --force                 force compression'
           '  --strip-relocs=0        do not strip relocations'
           '  --strip-relocs=1        strip relocations [default]'
           '  --all-methods           try all available compression methods'
@@ -252,9 +274,8 @@ object CommandsForm: TCommandsForm
             'tm32/pe,'
           '    tmt/adam, vmlinux/386, vmlinuz/386, watcom/le, win32/pe'
           ''
-          
-            'UPX comes with ABSOLUTELY NO WARRANTY; for details visit http://' +
-            'upx.sf.net')
+          'UPX comes with ABSOLUTELY NO WARRANTY; for details visit '
+          'https://upx.github.io')
         ParentFont = False
         ReadOnly = True
         ScrollBars = ssVertical
@@ -263,7 +284,7 @@ object CommandsForm: TCommandsForm
       end
     end
     object tbsUPX3: TTabSheet
-      Caption = 'UPX v2.9x'
+      Caption = 'UPX 5.0.2'
       ImageIndex = 2
       object mmoUPX3: TMemo
         Left = 0
@@ -280,7 +301,7 @@ object CommandsForm: TCommandsForm
         Font.Name = 'Courier New'
         Font.Style = []
         Lines.Strings = (
-          'Version: v2.9x'
+          'Version: 5.0.2'
           '--------------'
           'Commands:'
           '  -1     compress faster                   -9    compress better'
@@ -297,15 +318,9 @@ object CommandsForm: TCommandsForm
           ''
           'Options:'
           '  -q     be quiet                          -v    be verbose'
-          '  -oFILE write output to '#39'FILE'#39
+          '  -oFILE write output to `FILE'#39
           '  -f     force compression of suspicious files'
           '  --no-color, --mono, --color, --no-progress   change look'
-          ''
-          'Compression tuning options:'
-          
-            '  --brute             try all available compression methods & fi' +
-            'lters'
-          '  --ultra-brute       try even more compression variants'
           ''
           'Backup options:'
           '  -k, --backup        keep backup files'
@@ -348,10 +363,8 @@ object CommandsForm: TCommandsForm
           
             '  --8-bit             uses 8 bit size compression [default: 32 b' +
             'it]'
-          '  --8mb-ram           8 megabyte memory limit [default: 2 mb]'
-          
-            '  --boot-only         disables client/host transfer compatibilit' +
-            'y'
+          '  --8mib-ram          PSone has 8 MiB ram available'
+          '  --console-run       enables client/host transfer compatibility'
           
             '  --no-align          don'#39't align to 2048 bytes [enables: --cons' +
             'ole-run]'
@@ -367,20 +380,21 @@ object CommandsForm: TCommandsForm
           'Options for watcom/le:'
           '  --le                produce LE output [default: EXE]'
           ''
-          'Options for win32/pe, rtm32/pe & arm/pe:'
+          'Options for win32/pe & rtm32/pe:'
           '  --compress-exports=0    do not compress the export section'
           '  --compress-exports=1    compress the export section [default]'
           '  --compress-icons=0      do not compress any icons'
           '  --compress-icons=1      compress all but the first icon'
           
             '  --compress-icons=2      compress all but the first icon direct' +
-            'ory '
-          '[default]'
+            'ory'
           '  --compress-icons=3      compress all icons'
+          '[default]'
           '  --compress-resources=0  do not compress any resources at all'
           
             '  --keep-resource=list    do not compress resources specified by' +
             ' list'
+          '  --force                 force compression'
           '  --strip-relocs=0        do not strip relocations'
           '  --strip-relocs=1        strip relocations [default]'
           '  --all-methods           try all available compression methods'
@@ -391,37 +405,16 @@ object CommandsForm: TCommandsForm
           'file..   executables to (de)compress'
           ''
           'This version supports:'
-          '    amd64-linux.elf                  linux/ElfAMD'
-          '    amd64-linux.kernel.vmlinux       vmlinux/AMD64'
-          '    arm-linux.elf                    linux/armLE'
-          '    arm-linux.kernel.vmlinux         vmlinux/ARM'
-          '    arm-wince.pe                     arm/pe'
-          '    armeb-linux.elf                  linux/armBE'
-          '    i286-dos16.com                   dos/com'
-          '    i286-dos16.exe                   dos/exe'
-          '    i286-dos16.sys                   dos/sys'
-          '    i386-bsd.elf.execve              *BSD/386'
-          '    i386-dos32.djgpp2                djgpp2/coff'
-          '    i386-dos32.tmt                   tmt/adam'
-          '    i386-dos32.watcom.le             watcom/le'
-          '    i386-freebsd.elf                 BSD/elf386'
-          '    i386-linux.elf                   linux/elf386'
-          '    i386-linux.elf.execve            linux/386'
-          '    i386-linux.elf.shell             linux/sh386'
-          '    i386-linux.kernel.bvmlinuz       bvmlinuz/386'
-          '    i386-linux.kernel.vmlinux        vmlinux/386'
-          '    i386-linux.kernel.vmlinuz        vmlinuz/386'
-          '    i386-netbsd.elf                  BSD/elf386'
-          '    i386-openbsd.elf                 BSD/elf386'
-          '    i386-win32.pe                    win32/pe'
-          '    m68k-atari.tos                   atari/tos'
-          '    mipsel.r3000-ps1                 ps1/exe'
-          '    powerpc-darwin.macho             Mach/ppc32'
-          '    powerpc-linux.elf                linux/ElfPPC'
-          ''
           
-            'UPX comes with ABSOLUTELY NO WARRANTY; for details visit http://' +
-            'upx.sf.net')
+            '    arm/pe, atari/tos, bvmlinuz/386, djgpp2/coff, dos/com, dos/e' +
+            'xe, dos/sys,'
+          
+            '    linux/amd64, linux/i386, linux/ppc32, mach/ppc32, ps1/exe, r' +
+            'tm32/pe,'
+          '    tmt/adam, vmlinux/386, vmlinuz/386, watcom/le, win32/pe'
+          ''
+          'UPX comes with ABSOLUTELY NO WARRANTY; for details visit '
+          'https://upx.github.io')
         ParentFont = False
         ReadOnly = True
         ScrollBars = ssVertical

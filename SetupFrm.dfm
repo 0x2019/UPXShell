@@ -13,12 +13,10 @@ object SetupForm: TSetupForm
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object pnlBottom: TPanel
     Left = 1
@@ -211,7 +209,6 @@ object SetupForm: TSetupForm
       Height = 21
       Hint = 'Select packer process priority'
       Style = csDropDownList
-      ItemHeight = 13
       ItemIndex = 1
       TabOrder = 4
       Text = 'NORMAL (default)'
@@ -228,7 +225,6 @@ object SetupForm: TSetupForm
       Height = 21
       Hint = 'Select what to do with icons'
       Style = csDropDownList
-      ItemHeight = 13
       ItemIndex = 2
       TabOrder = 5
       Text = 'Don'#39't compress'
@@ -291,30 +287,17 @@ object SetupForm: TSetupForm
     ParentShowHint = False
     ShowHint = True
     TabOrder = 2
-    object lblUpx2Only: TLabel
+    object lblCompOps: TLabel
       Left = 8
       Top = 4
-      Width = 65
+      Width = 100
       Height = 13
-      Caption = 'UPX v2.0x:'
+      Caption = 'Compression options:'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object lblUpx3Only: TLabel
-      Left = 136
-      Top = 4
-      Width = 94
-      Height = 13
-      Caption = 'UPX v3.0x Only:'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
+      Font.Style = []
       ParentFont = False
     end
     object chkBrute: TCheckBox

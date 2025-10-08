@@ -57,9 +57,8 @@ type
     pnlUpx2:        TPanel;
     chkBrute:       TCheckBox;
     chkMethods:     TCheckBox;
-    lblUpx2Only:    TLabel;
+    lblCompOps: TLabel;
     chkFilters:     TCheckBox;
-    lblUpx3Only: TLabel;
     chkLZMA: TCheckBox;
     chkUltraBrute: TCheckBox;
     procedure FormCreate(Sender: TObject);
