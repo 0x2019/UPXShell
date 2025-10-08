@@ -126,13 +126,19 @@ end;
 function AlreadyPacked: boolean;
 var
   f:           TFileStream;
-  GlobalChain: array[1..$3F0] of char;
+  GlobalChain: array[1..$3F0] of AnsiChar;
+  BytesRead:   integer;
+  Buffer:      AnsiString;
 begin
+  Result := False;
+  BytesRead := 0;
+  FillChar(GlobalChain, SizeOf(GlobalChain), 0);
+  f := nil;
   try
     f          := TFileStream.Create(GlobFileName, fmOpenRead);
     f.Position := 0;
     try
-      f.ReadBuffer(GlobalChain, $3EF);
+      BytesRead := f.Read(GlobalChain, SizeOf(GlobalChain));
     except
       on E: Exception do
       begin
@@ -142,13 +148,10 @@ begin
       end;
     end;
 
-    if pos('UPX', GlobalChain) <> 0 then
+    if BytesRead > 0 then
     begin
-      Result := True;
-    end
-    else
-    begin
-      Result := False;
+      SetString(Buffer, PAnsiChar(@GlobalChain[1]), BytesRead);
+      Result := Pos('UPX', string(Buffer)) <> 0;
     end;
     // offset $34b... test the typical string in .EXE & .DLL 'This file is packed with the UPX'
     // offset $1F9... test string in .SCR 'This file is packed with the UPX'
