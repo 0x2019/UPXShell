@@ -38,90 +38,98 @@ implementation
 function fScrambleUPX(const FileName: string): boolean;
 var
   fsSource:    TFileStream;
-  GlobalChain: array[1..$2BE0] of char;
-	PosString:   integer;
-	FileSize:		 Int64;
+  Buffer:      TBytes;
+  BufferStr:   string;
+  Modified:    Boolean;
+  FileSize:    Int64;
+
+  function BytesOf(const Text: string): TBytes;
+  begin
+    Result := TEncoding.ANSI.GetBytes(Text);
+  end;
+
+  function ZeroBytes(const Count: Integer): TBytes;
+  begin
+    SetLength(Result, Count);
+    if Count > 0 then
+    begin
+      FillChar(Result[0], Count, 0);
+    end;
+  end;
+
+  function ReplaceBytes(const Pattern: string; const Replacement: TBytes;
+    const Offset: Integer = 0): Boolean;
+  var
+    Index: Integer;
+    Start: Integer;
+  begin
+    Result := False;
+    if Length(Replacement) = 0 then
+    begin
+      Exit;
+    end;
+
+    Index := Pos(Pattern, BufferStr);
+    if Index = 0 then
+    begin
+      Exit;
+    end;
+
+    Start := Index - 1 + Offset;
+    if (Start < 0) or (Start + Length(Replacement) > Length(Buffer)) then
+    begin
+      Exit;
+    end;
+
+    Move(Replacement[0], Buffer[Start], Length(Replacement));
+    BufferStr := TEncoding.ANSI.GetString(Buffer);
+    Modified := True;
+    Result := True;
+  end;
+
 begin
   Result := False;
-	try
-		fsSource := TFileStream.Create(FileName, fmOpenReadWrite);
-		FileSize := fsSource.Size;
-		//Scramble UPX0 -> code | UPX0 located in upx v0.6 until present
-    fsSource.Position := 0;
-		fsSource.ReadBuffer(GlobalChain, FileSize);
-    if pos('UPX0', GlobalChain) <> 0 then
+  fsSource := TFileStream.Create(FileName, fmOpenReadWrite);
+  try
+    FileSize := fsSource.Size;
+    if (FileSize = 0) or (FileSize > High(Integer)) then
     begin
-      PosString := pos('UPX0', GlobalChain);
-      fsSource.Position := PosString - 1;
-      fsSource.Write('CODE', 4);
-      Result := True;
+      Exit;
     end;
-    //Scramble UPX1 -> text | UPX1 located in upx v0.6 until present
+
+    SetLength(Buffer, Integer(FileSize));
     fsSource.Position := 0;
-		fsSource.ReadBuffer(GlobalChain, FileSize);
-    if pos('UPX1', GlobalChain) <> 0 then
+    fsSource.ReadBuffer(Buffer[0], Length(Buffer));
+    BufferStr := TEncoding.ANSI.GetString(Buffer);
+    Modified := False;
+
+    // Scramble UPX0 -> code | UPX0 located in upx v0.6 until present
+    ReplaceBytes('UPX0', BytesOf('CODE'));
+    // Scramble UPX1 -> text | UPX1 located in upx v0.6 until present
+    ReplaceBytes('UPX1', BytesOf('DATA'));
+    // Scramble UPX2 -> data | UPX2 located in upx v0.6 until v1.0x
+    ReplaceBytes('UPX2', BytesOf('BSS' + #0));
+    // Scramble UPX3 -> data | UPX3 located in upx v0.7x i think.
+    ReplaceBytes('UPX3', BytesOf('IDATA'));
+
+    // Scramble OLD '$Id: UPXScrambler.pas,v 1.14 2007/01/23 21:43:50 dextra Exp $Id: UPX'
+    if ReplaceBytes('$Id: UPX', ZeroBytes(13)) then
     begin
-      PosString := pos('UPX1', GlobalChain);
-      fsSource.Position := PosString - 1;
-      fsSource.Write('DATA', 4);
-      Result := True;
-    end;
-    //Scramble UPX2 -> data | UPX2 located in upx v0.6 until v1.0x
-    fsSource.Position := 0;
-		fsSource.ReadBuffer(GlobalChain, FileSize);
-    if pos('UPX2', GlobalChain) <> 0 then
-    begin
-      PosString := pos('UPX2', GlobalChain);
-      fsSource.Position := PosString - 1;
-      fsSource.Write('BSS'#$00, 4);
-      Result := True;
-    end;
-    //Scramble UPX3 -> data | UPX3 located in upx v0.7x i think.
-    fsSource.Position := 0;
-		fsSource.ReadBuffer(GlobalChain, FileSize);
-    if pos('UPX3', GlobalChain) <> 0 then
-    begin
-      PosString := pos('UPX3', GlobalChain);
-      fsSource.Position := PosString - 1;
-      fsSource.Write('IDATA', 5);
-      Result := True;
-    end;
-    //Scramble OLD '$Id: UPXScrambler.pas,v 1.14 2007/01/23 21:43:50 dextra Exp $Id: UPX' located in upx v0.06 until v1.07x
-    fsSource.Position := 0;
-		fsSource.ReadBuffer(GlobalChain, FileSize);
-    if pos('$Id: UPX', GlobalChain) <> 0 then
-    begin
-      //Start '$Id: UPX'
-      PosString := pos('$Id: UPX', GlobalChain);
-      fsSource.Position := PosString - 1;
-      //Write 13 times 0 becouse of the version string removal.
-      fsSource.Write(#0#0#0#0#0#0#0#0#0#0#0#0#0, 13);
-      //Start 'UPX!'
-      PosString := pos('UPX!', GlobalChain);
-      fsSource.Position := PosString - 1;
-      fsSource.Write(#0#0#0#0#0#0, 6);
-      Result := True;
+      ReplaceBytes('UPX!', ZeroBytes(6));
     end
     else
     begin
-      //Scramble NEW UPX! -> nil | UPX! located in upx v1.08 until present
-      if pos('UPX!', GlobalChain) <> 0 then
-      begin
-        //-6 Becouse of the version string removal.
-        PosString := pos('UPX!', GlobalChain);
-        fsSource.Position := PosString - 6;
-        fsSource.Write(#0#0#0#0#0#0#0#0#0#0#0, 11);
-        Result := True;
-      end;
+      // Scramble NEW UPX! -> nil | UPX! located in upx v1.08 until present
+      ReplaceBytes('UPX!', ZeroBytes(11), -6);
     end;
-    //Scramble anything that is left of something called UPX within the header
-    fsSource.Position := 0;
-		fsSource.ReadBuffer(GlobalChain, FileSize);
-		if pos('UPX', GlobalChain) <> 0 then
+
+    // Scramble anything that is left of something called UPX within the header
+    ReplaceBytes('UPX', ZeroBytes(3));
+
+    if Modified then
     begin
-      PosString := pos('UPX', GlobalChain);
-      fsSource.Position := PosString - 1;
-      fsSource.Write(#0#0#0, 3);
+      fsSource.Position := 0;
+      fsSource.WriteBuffer(Buffer[0], Length(Buffer));
       Result := True;
     end;
   finally
