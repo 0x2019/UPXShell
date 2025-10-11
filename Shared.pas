@@ -302,23 +302,31 @@ end;
 procedure ScrambleUPX;
 var
   Scrambled: boolean;
+  PanelText: string;
+  ScrambledSuffix: string;
+  ScrambleFailedSuffix: string;
 begin
   if GlobFileName <> '' then
   begin
+    ScrambledSuffix      := TranslateMsg(' & scrambled');
+    ScrambleFailedSuffix := ScrambledSuffix + ' ' + TranslateMsg('Failed');
     if AlreadyPacked then
     begin
       Scrambled := fScrambleUPX(GlobFileName);
       if Scrambled then
       begin
         MainForm.chkDecomp.Checked      := False;
-        MainForm.stbMain.Panels[1].Text :=
-          MainForm.stbMain.Panels[1].Text + TranslateMsg(' & scrambled');
+        PanelText := MainForm.stbMain.Panels[1].Text;
+        PanelText := StringReplace(PanelText, ScrambleFailedSuffix, '', [rfReplaceAll]);
+        PanelText := StringReplace(PanelText, ScrambledSuffix, '', [rfReplaceAll]);
+        MainForm.stbMain.Panels[1].Text := PanelText + ScrambledSuffix;
       end
       else
       begin
-        MainForm.stbMain.Panels[1].Text :=
-          MainForm.stbMain.Panels[1].Text + TranslateMsg(' & scrambled') +
-          ' ' + TranslateMsg('Failed');
+        PanelText := MainForm.stbMain.Panels[1].Text;
+        PanelText := StringReplace(PanelText, ScrambleFailedSuffix, '', [rfReplaceAll]);
+        PanelText := StringReplace(PanelText, ScrambledSuffix, '', [rfReplaceAll]);
+        MainForm.stbMain.Panels[1].Text := PanelText + ScrambleFailedSuffix;
       end;
     end
     else
@@ -332,14 +340,17 @@ begin
         if Scrambled then
         begin
           MainForm.chkDecomp.Checked      := False;
-          MainForm.stbMain.Panels[1].Text :=
-            MainForm.stbMain.Panels[1].Text + TranslateMsg(' & scrambled');
+          PanelText := MainForm.stbMain.Panels[1].Text;
+          PanelText := StringReplace(PanelText, ScrambleFailedSuffix, '', [rfReplaceAll]);
+          PanelText := StringReplace(PanelText, ScrambledSuffix, '', [rfReplaceAll]);
+          MainForm.stbMain.Panels[1].Text := PanelText + ScrambledSuffix;
         end
         else
         begin
-          MainForm.stbMain.Panels[1].Text :=
-            MainForm.stbMain.Panels[1].Text + TranslateMsg(' & scrambled') +
-            ' ' + TranslateMsg('Failed');
+          PanelText := MainForm.stbMain.Panels[1].Text;
+          PanelText := StringReplace(PanelText, ScrambleFailedSuffix, '', [rfReplaceAll]);
+          PanelText := StringReplace(PanelText, ScrambledSuffix, '', [rfReplaceAll]);
+          MainForm.stbMain.Panels[1].Text := PanelText + ScrambleFailedSuffix;
         end;
       end;
     end;
