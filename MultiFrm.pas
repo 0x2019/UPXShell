@@ -290,7 +290,7 @@ begin
     lvFiles.Clear;
     SetLength(FFiles, 0);
     Screen.Cursor := crHourGlass;
-    FFileName     := cmbType.Text;
+    FFileName     := Trim(Copy(cmbType.Text + ' ', 1, Pos(' ', cmbType.Text + ' ') - 1));
     if chkRecurse.Checked then
     begin
       FindFiles(lblDir.Caption);
