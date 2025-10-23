@@ -409,9 +409,9 @@ begin
     Si.lpTitle  := PChar('UPX Shell - MultiPack Engine');
   end;
   GlobFileName := FileName;
+  UnSetReadOnly(GlobFileName);
   FileName     := GetCompressParams;
   SetCurrentDir(WorkDir);
-  UnSetReadOnly(FileName);
   ShowWindow(findwindow(nil, PChar('UPX Shell - MultiPack Engine')), 0);
   Createprocess(nil, PChar(FileName), nil, nil, True,
     Create_default_error_mode + GetPriority, nil, PChar(WorkDir), Si, p);
