@@ -471,7 +471,7 @@ object MainForm: TMainForm
         Tag = -1
         Left = 248
         Top = 32
-        Width = 99
+        Width = 96
         Height = 13
         Caption = '3.09, 4.24, 5.0.2'
         Font.Charset = DEFAULT_CHARSET

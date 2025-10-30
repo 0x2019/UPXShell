@@ -1,6 +1,6 @@
 {*
     UPX Shell
-    Copyright © 2000-2006, Michael Hardy
+    Copyright Â© 2000-2006, Michael Hardy
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -31,7 +31,6 @@ type
     pnlOk:          TPanel;
     btnOk:          TButton;
     scbProps:       TScrollBox;
-    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
   private
@@ -48,35 +47,6 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TLocalizerForm.FormCreate(Sender: TObject);
-var
-  Save: longint;
-begin
-  //Removes the header from the form
-  if BorderStyle = bsNone then
-  begin
-    Exit;
-  end;
-  Save := GetWindowLong(Handle, GWL_STYLE);
-  if (Save and WS_CAPTION) = WS_CAPTION then
-  begin
-    case BorderStyle of
-      bsSingle, bsSizeable:
-      begin
-        SetWindowLong(Handle, GWL_STYLE,
-          Save and (not WS_CAPTION) or WS_BORDER);
-      end;
-      bsDialog:
-      begin
-        SetWindowLong(Handle, GWL_STYLE,
-          Save and (not WS_CAPTION) or DS_MODALFRAME or WS_DLGFRAME);
-      end;
-    end;
-    Height := Height - GetSystemMetrics(SM_CYCAPTION);
-    Refresh;
-  end;
-end;
 
 procedure TLocalizerForm.InitControlEditors;
 

@@ -1,6 +1,7 @@
 object CommandsForm: TCommandsForm
   Left = 330
   Top = 242
+  BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'UPX Commands'
   ClientHeight = 415
@@ -13,7 +14,6 @@ object CommandsForm: TCommandsForm
   Font.Style = []
   Position = poMainFormCenter
   ShowHint = True
-  OnCreate = FormCreate
   TextHeight = 13
   object pgcCommands: TPageControl
     Left = 0
@@ -422,22 +422,5 @@ object CommandsForm: TCommandsForm
         WantReturns = False
       end
     end
-  end
-  object btnClose: TButton
-    Left = 536
-    Top = 0
-    Width = 20
-    Height = 18
-    BiDiMode = bdLeftToRight
-    Caption = 'x'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -15
-    Font.Name = 'MS Sans Serif'
-    Font.Style = [fsBold]
-    ModalResult = 1
-    ParentBiDiMode = False
-    ParentFont = False
-    TabOrder = 1
   end
 end
