@@ -829,7 +829,15 @@ end;
 {** **}
 procedure TMainForm.btnHelpClick(Sender: TObject);
 begin
-	ShellExecute(self.Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
+  if (Application.HelpFile <> '') and FileExists(Application.HelpFile) then
+  begin
+    ShellExecute(self.Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
+  end
+  else
+  begin
+    Application.MessageBox(PChar(TranslateMsg('Help file not found.')),
+      PChar(TranslateMsg('Error')), MB_OK + MB_ICONERROR);
+  end;
 end;
 
 {** **}

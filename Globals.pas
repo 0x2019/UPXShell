@@ -25,7 +25,7 @@ unit Globals;
 interface
 
 const
-  MsgCount = 44; //Contains original english messages
+  MsgCount = 45; //Contains original english messages
   EngMsgs: array[1..MsgCount] of string = (
     'Could not access file. It may be allready open',
     'The file attribute is set to ReadOnly. To proceed it must be unset. Continue?',
@@ -70,7 +70,8 @@ const
     'This file is now Scrambled!',
     'This file has NOT been scrambled!',
     'Compress with UPX',
-    'Custom upx.exe');
+    'Custom upx.exe',
+    'Help file not found.');
 
 type
   // The global configuration type
