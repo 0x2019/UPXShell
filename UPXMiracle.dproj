@@ -85,7 +85,10 @@
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Created By Michael Hardy;FileDescription=Cool Executable Compressor!;FileVersion=5.0.2.0;InternalName=UPX Shell;LegalCopyright=Copyright © 2010 - 2025;LegalTrademarks=Property of ® Michael Hardy;OriginalFilename=UPXMiracle.exe;ProductName=® Hardy Creations UPX Shell;ProductVersion=5.0.2.0;Comments=Created By Michael Hardy;ProgramID=</VerInfo_Keys>
+        <AppExecutionLevel>requireAdministrator</AppExecutionLevel>
+        <VerInfo_MajorVer>5</VerInfo_MajorVer>
+        <VerInfo_Release>2</VerInfo_Release>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>

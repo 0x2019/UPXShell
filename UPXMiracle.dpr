@@ -52,15 +52,9 @@ uses
 // we can now switch between using the native Delphi
 // resource settings, or the more powerful external
 // resource files
-{$DEFINE UseExternalConfigurationResources}
+{$R *.res}
+{$R 'Resources\resources.res'}
 
-{$IFDEF UseExternalConfigurationResources}
-  {$R Resources\resources.res}
-{$ELSE}
-  {$R *.res}
-  {$R Resources\WinXP.res}
-  {$R Resources\UPX.res}
-{$ENDIF}
 begin
   Application.Initialize;
   Application.Title := 'UPX Miracle';
