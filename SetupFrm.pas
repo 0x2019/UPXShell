@@ -108,6 +108,7 @@ begin
   chkMethods.Checked     := ReadKey('AllMethods', ktBoolean).Bool;
 	chkFilters.Checked     := ReadKey('AllFilters', ktBoolean).Bool;
 	chkLZMA.Checked        := ReadKey('LZMA', ktBoolean).Bool;
+  chkUltraBrute.Checked  := ReadKey('UltraBrute', ktBoolean).Bool;
 
   if (ReadKey('Priority', ktInteger).Int <> -1) then
   begin
@@ -220,6 +221,9 @@ begin
 
 	RegValue.Bool := chkLZMA.Checked;
 	StoreKey('LZMA', RegValue, ktBoolean);
+
+  RegValue.Bool := chkUltraBrute.Checked;
+	StoreKey('UltraBrute', RegValue, ktBoolean);
 
   RegValue.Bool := chkCompression.Checked;
   StoreKey('AdvCompression', RegValue, ktBoolean);
