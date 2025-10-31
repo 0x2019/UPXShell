@@ -466,13 +466,16 @@ begin
       fStream := TFileStream.Create(FilePath, fmOpenRead);
       for I := Low(offsets) to High(offsets) do
       begin
-        fStream.Position := 1;
-        fStream.Seek(offsets[I], soFromBeginning);
-        fStream.ReadBuffer(chain, $4);
-        if (TryStrToFloat(chain, upxVersion)) then
+        if offsets[I] + SizeOf(chain) <= fStream.Size then
         begin
-          Result := chain;
-          Break;
+          fStream.Position := 1;
+          fStream.Seek(offsets[I], soFromBeginning);
+          fStream.ReadBuffer(chain, SizeOf(chain));
+          if (TryStrToFloat(chain, upxVersion)) then
+          begin
+            Result := chain;
+            Break;
+          end;
         end;
       end;
     finally
