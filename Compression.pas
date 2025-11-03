@@ -280,12 +280,12 @@ function SetStatus(EC: cardinal; Compress: TCompDecomp): TCompResult;
     if Compress = cdCompress then
     begin
       MainForm.stbMain.Panels[1].Text :=
-        TranslateMsg('Errors occured. File not compressed');
+        TranslateMsg('Errors occurred. File not compressed');
     end
     else
     begin
       MainForm.stbMain.Panels[1].Text :=
-        TranslateMsg('Errors occured. File not decompressed');
+        TranslateMsg('Errors occurred. File not decompressed');
     end;
     CompResult := crError;
   end;
@@ -298,11 +298,11 @@ begin
     0:
     begin
       SetSuccess(CompResult);
-    end; //Successfull compression
+    end; //Successful compression
     1:
     begin
       SetError(CompResult);
-    end; //Errors encountered - unsuccessfull compression
+    end; //Errors encountered - unsuccessful compression
     2:
     begin
       SetWarning(CompResult);

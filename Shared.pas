@@ -143,7 +143,7 @@ begin
       on E: Exception do
       begin
         Application.MessageBox(PChar(TranslateMsg(
-          'Could not access file. It may be allready open!')),
+          'Could not access file. It may be already open!')),
           PChar(TranslateMsg('Error')), MB_ICONERROR or MB_OK);
       end;
     end;

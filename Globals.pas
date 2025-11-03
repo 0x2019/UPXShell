@@ -27,7 +27,7 @@ interface
 const
   MsgCount = 45; //Contains original english messages
   EngMsgs: array[1..MsgCount] of string = (
-    'Could not access file. It may be allready open',
+    'Could not access file. It may be already open',
     'The file attribute is set to ReadOnly. To proceed it must be unset. Continue?',
     'Best',
     'This file doesn''t seem to be packed. Run the Scrambler?',
@@ -47,8 +47,8 @@ const
     'File successfully decompressed',
     'File compressed with warnings',
     'File decompressed with warnings',
-    'Errors occured. File not compressed',
-    'Errors occured. File not decompressed',
+    'Errors occurred. File not compressed',
+    'Errors occurred. File not decompressed',
     ' & tested',
     ' & tested w/warnings',
     ' & test failed',
@@ -130,7 +130,7 @@ type
   // whether to compress or decompress the file
   TCompResult    = (crSuccess, crWarning, crError); //Passed to SetStatus()
 
-  //Used for the IntergrateContext procedure to check what to do.
+  //Used for the IntegrateContext procedure to check what to do.
 	TIntContext        = (doSetup, extRegister, extUnRegister);
   TIntContextOptions = set of TIntContext;
 
@@ -174,7 +174,7 @@ var
   curUPXVersion:  TUPXVersions;
 
 {** Global Procedures **}
-procedure IntergrateContext(const Options: TIntContextOptions);
+procedure IntegrateContext(const Options: TIntContextOptions);
 function QueryTime(const GetTime: boolean; var StartTime: int64): string;
 function ReadKey(const Name: string; KeyType: TKeyType): TRegValue;
 procedure StoreKey(const Name: string; const Value: TRegValue; KeyType: TKeyType);
@@ -272,7 +272,7 @@ begin
 end;
 
  {** **}
-procedure IntergrateContext(const Options: TIntContextOptions);
+procedure IntegrateContext(const Options: TIntContextOptions);
  {** (doSetup, extRegister, extUnRegister) **}
 var
   Path:         string;

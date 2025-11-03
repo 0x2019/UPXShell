@@ -40,7 +40,7 @@ type
     btnScramble:    TButton;
     chkIntegrate:   TCheckBox;
     pnlMiddle:      TPanel;
-    lblAdvacedOpts: TLabel;
+    lblAdvancedOpts: TLabel;
     lblPriority:    TLabel;
     lblIcons:       TLabel;
     chkForce:       TCheckBox;
@@ -225,11 +225,11 @@ procedure TSetupForm.chkIntegrateClick(Sender: TObject);
 begin
   if chkIntegrate.Checked then
   begin
-    IntergrateContext([extRegister]);
+    IntegrateContext([extRegister]);
   end
   else
   begin
-    IntergrateContext([extUnRegister]);
+    IntegrateContext([extUnRegister]);
   end;
 end;
 

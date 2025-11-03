@@ -126,7 +126,7 @@ object SetupForm: TSetupForm
     ParentShowHint = False
     ShowHint = True
     TabOrder = 1
-    object lblAdvacedOpts: TLabel
+    object lblAdvancedOpts: TLabel
       Left = 8
       Top = 8
       Width = 114

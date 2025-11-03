@@ -172,7 +172,7 @@ uses SysUtils, ShlObj, Wininet, ShellAPI,
 
 {*************************************************
  First list all the non-form procedures/functions
- This becouse of dependency's
+ This is because of dependencies
 *************************************************}
 
 {** This procedure loads application settings from the registry **}
@@ -578,14 +578,14 @@ begin
     if ParamStr(I) = '--SETUP-REGEXT' then
     begin
       LoadLanguage(MainForm);
-      IntergrateContext([doSetup, extRegister]);
+      IntegrateContext([doSetup, extRegister]);
       Application.Terminate;
     end
     else
     if ParamStr(I) = '--SETUP-UNREGEXT' then
     begin
       LoadLanguage(MainForm);
-      IntergrateContext([doSetup, extUnRegister]);
+      IntegrateContext([doSetup, extUnRegister]);
       Application.Terminate;
     end;
     //Check to start in the debug mode.
@@ -796,7 +796,7 @@ begin
   TrackBest;
   if SetupForm.chkIntegrate.Checked then
   begin
-    IntergrateContext([extRegister]);
+    IntegrateContext([extRegister]);
 	end;
 	FillUPXVersionsBox;
 end;
