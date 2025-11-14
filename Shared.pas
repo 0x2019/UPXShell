@@ -465,7 +465,7 @@ begin
     if PropInfo <> nil then
     begin
       TK := PropInfo^.PropType^.Kind;
-      if (TK = tkString) or (TK = tkLString) or (TK = tkWString) then
+      if TK in [tkString, tkLString, tkWString, tkUString] then
       begin
         SetStrProp(AComp, PropInfo, AValue);
       end;
@@ -741,7 +741,7 @@ begin
   if PropInfo <> nil then
   begin
     TK := PropInfo^.PropType^.Kind;
-    if (TK = tkString) or (TK = tkLString) or (TK = tkWString) then
+    if TK in [tkString, tkLString, tkWString, tkUString] then
     begin
       Result := GetStrProp(Component, PropInfo);
     end;
@@ -786,7 +786,7 @@ begin
   if PropInfo <> nil then
   begin
     TK := PropInfo^.PropType^.Kind;
-    if (TK = tkString) or (TK = tkLString) or (TK = tkWString) then
+    if TK in [tkString, tkLString, tkWString, tkUString] then
     begin
       Result := True;
     end;
@@ -800,7 +800,7 @@ var
   I: integer;
 begin
   Result := InStr;
-  for I := 1 to length(Result) do
+  for I := 1 to length(Result) - 1 do
   begin
     if (Result[I] = #13) and (Result[I + 1] = #10) then
     begin
@@ -816,7 +816,7 @@ var
   I: integer;
 begin
   Result := InStr;
-  for I := 1 to length(Result) do
+  for I := 1 to length(Result) - 1 do
   begin
     if (Result[I] = '\') and (Result[I + 1] = 'n') then
     begin
