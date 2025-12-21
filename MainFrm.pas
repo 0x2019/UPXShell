@@ -516,8 +516,16 @@ begin
     end;
 
     //Checks UPX Shell release and buil numbers
-    lblRelease.Caption := '3.6';//BuildInfo.biNoBuild;
-    lblBuild.Caption   := '13';//IntToStr(BuildInfo.biBuild);
+    if BuildInfo.biNoBuild <> '' then
+    begin
+      lblRelease.Caption := BuildInfo.biNoBuild;
+      lblBuild.Caption   := IntToStr(BuildInfo.biBuild);
+    end
+    else
+    begin
+      lblRelease.Caption := 'Unknown';
+      lblBuild.Caption   := 'Unknown';
+    end;
     lblOut.Caption     := BuildInfo.biCute;
   end;
 end;
