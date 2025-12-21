@@ -269,15 +269,25 @@ var
   Strings:  TStrings;
   I:        integer;
   MenuItem: TMenuItem; // To add to the History menu
+  History: string;
 begin
   Strings := TStringList.Create;
   try
-    Strings.CommaText := ReadKey('History', ktString).Str;
+    History := ReadKey('History', ktString).Str;
+    Strings.StrictDelimiter := True;
+    Strings.Delimiter := '|';
+    Strings.QuoteChar := '"';
+    Strings.DelimitedText := History;
+    if (Strings.Count = 1) and (Pos('|', History) = 0) and (Pos(',', History) > 0) then
+    begin
+      Strings.Clear;
+      Strings.CommaText := History;
+    end;
     // Load the file history
     for I := Strings.Count - 1 downto 0 do
     begin
       MenuItem         := TMenuItem.Create(MainForm);
-      MenuItem.Caption := Strings.Strings[I];
+      MenuItem.Caption := StringReplace(Strings.Strings[I], '&', '&&', [rfReplaceAll]);
       MenuItem.OnClick := MainForm.HistoryPopUp;
 			MainForm.mnuHistory.Items.Add(MenuItem);
     end;
@@ -291,6 +301,8 @@ procedure WriteHistory(const FileName: string);
 var
   Strings: TStrings;
   Value:   TRegValue;
+  CFileName: string;
+  History: string;
 
   { This nested procedure adds a new menu item to the History menu }
   procedure AddNewMenuItem;
@@ -298,7 +310,7 @@ var
     MenuItem: TMenuItem; // To add to the History menu
   begin
     MenuItem         := TMenuItem.Create(MainForm);
-    MenuItem.Caption := FileName;
+    MenuItem.Caption := CFileName;
     MenuItem.OnClick := MainForm.HistoryPopUp;
     MainForm.mnuHistory.Items.Add(MenuItem);
   end;
@@ -306,12 +318,22 @@ var
 begin
   Strings := TStringList.Create;
   try
-    Strings.CommaText := ReadKey('History', ktString).Str;
+    Strings.StrictDelimiter := True;
+    Strings.Delimiter := '|';
+    Strings.QuoteChar := '"';
+    History := ReadKey('History', ktString).Str;
+    Strings.DelimitedText := History;
+    if (Strings.Count = 1) and (Pos('|', History) = 0) and (Pos(',', History) > 0) then
+    begin
+      Strings.Clear;
+      Strings.CommaText := History;
+    end;
+    CFileName := StringReplace(FileName, '&', '&&', [rfReplaceAll]);
     // Load the file history
     if Strings.IndexOf(FileName) = -1 then // If item isn't already in the list
     begin
       Strings.Add(FileName);
-      Value.Str := Strings.CommaText;
+      Value.Str := Strings.DelimitedText;
       StoreKey('History', Value, ktString);
       AddNewMenuItem;
     end;
