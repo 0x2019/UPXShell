@@ -284,7 +284,7 @@ object CommandsForm: TCommandsForm
       end
     end
     object tbsUPX3: TTabSheet
-      Caption = 'UPX 5.0.2'
+      Caption = 'UPX 5.1.0'
       ImageIndex = 2
       object mmoUPX3: TMemo
         Left = 0
@@ -301,7 +301,7 @@ object CommandsForm: TCommandsForm
         Font.Name = 'Courier New'
         Font.Style = []
         Lines.Strings = (
-          'Version: 5.0.2'
+          'Version: 5.1.0'
           '--------------'
           'Commands:'
           '  -1     compress faster                   -9    compress better'

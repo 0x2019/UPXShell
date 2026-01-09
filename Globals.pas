@@ -87,7 +87,7 @@ type
 
 const
   resUPXVersions: array[TUPXVersions] of string = ('UPX1', 'UPX2', 'UPX3', 'UPXC');
-  aUPXVersions: array[TUPXVersions] of string = ('UPX 3.09', 'UPX 4.24', 'UPX 5.0.2', 'Custom');
+  aUPXVersions: array[TUPXVersions] of string = ('UPX 3.09', 'UPX 4.24', 'UPX 5.1.0', 'Custom');
 
 
 type
