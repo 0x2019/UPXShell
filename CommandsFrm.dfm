@@ -284,7 +284,7 @@ object CommandsForm: TCommandsForm
       end
     end
     object tbsUPX3: TTabSheet
-      Caption = 'UPX 5.1.0'
+      Caption = 'UPX 5.1.1'
       ImageIndex = 2
       object mmoUPX3: TMemo
         Left = 0
