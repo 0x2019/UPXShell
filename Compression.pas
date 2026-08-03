@@ -87,7 +87,7 @@ var
   upxCurProgressBarPos: integer; //This is filled by the LastPos function located in Globals.
   upxTotalProgress: integer; //This will hold the total amount of * to be counted when in MultiProgress.
   upxCurrentProgress: integer;
-  OldAppTitle:  string;
+  OldCaption:   string;
 
   ProgressValue: integer;
   CompressSize: string;
@@ -99,7 +99,7 @@ var
   Line:         TLine;
 begin
   GetExitCodeProcess(ProcInfo.hProcess, EC);
-  OldAppTitle         := Application.Title;
+  OldCaption          := MainForm.Caption;
   CursorPos.x         := 0;
   CursorPos.y         := 0;
   upxTotalProgress    := 0;
@@ -127,6 +127,7 @@ begin
       GetExitCodeProcess(ProcInfo.hProcess, EC);
       if EC <= 2 then
       begin
+        MainForm.Caption := OldCaption;
         Exit;
       end;
     end;
@@ -180,7 +181,7 @@ begin
       //The percentage of the compression on the file.
       CompressSize := Line[69] + Line[70] + Line[71] + Line[72];
 
-      Application.Title         := OldAppTitle + ' - ' + IntToStr(ProgressValue) + '%';
+      MainForm.Caption          := OldCaption + ' - ' + IntToStr(ProgressValue) + '%';
       MainForm.prbSize.Progress := Round(StrToFloat(CompressSize));
       MainForm.prbCompress.Progress := ProgressValue;
 
@@ -189,12 +190,13 @@ begin
       Application.ProcessMessages;
       if ProgressValue >= 100 then
       begin
+        MainForm.Caption := OldCaption;
         Exit;
       end;
     end;
     GetExitCodeProcess(ProcInfo.hProcess, EC);
   end;
-  Application.Title := OldAppTitle;
+  MainForm.Caption := OldCaption;
 end;
 
 

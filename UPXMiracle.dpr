@@ -57,7 +57,7 @@ uses
 
 begin
   Application.Initialize;
-  Application.Title := 'UPX Miracle';
+  Application.MainFormOnTaskbar := True;
   Application.HelpFile := '';
   Application.ShowMainForm := False;
 	Application.CreateForm(TMainForm, MainForm);
