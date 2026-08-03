@@ -53,7 +53,7 @@ uses
 // resource settings, or the more powerful external
 // resource files
 {$R *.res}
-{$R 'Resources\resources.res'}
+{$R 'resources.res'}
 
 begin
   Application.Initialize;

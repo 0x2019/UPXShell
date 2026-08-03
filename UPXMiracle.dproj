@@ -121,6 +121,7 @@
         <DCCReference Include="Translator.pas"/>
         <DCCReference Include="Compression.pas"/>
         <DCCReference Include="UPXScrambler.pas"/>
+        <RcCompile Include="Resources\resources.rc"/>
         <None Include="UPXMiracle.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
