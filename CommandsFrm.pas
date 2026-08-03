@@ -36,6 +36,7 @@ type
     mmoUPX2:     TMemo;
 		tbsUPX3:		 TTabSheet;
     mmoUPX3:		 TMemo;
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -47,6 +48,31 @@ var
 
 implementation
 
+uses
+  Globals;
+
 {$R *.dfm}
+
+procedure LoadUPXHelp(const ResName: string; const Lines: TStrings);
+var
+  ResourceStream: TResourceStream;
+begin
+  ResourceStream := TResourceStream.Create(HInstance, ResName, PChar('TEXTFILE'));
+  try
+    Lines.LoadFromStream(ResourceStream, TEncoding.ASCII);
+  finally
+    ResourceStream.Free;
+  end;
+end;
+
+procedure TCommandsForm.FormCreate(Sender: TObject);
+begin
+  tbsUPX1.Caption := aUPXVersions[UPX1];
+  tbsUPX2.Caption := aUPXVersions[UPX2];
+  tbsUPX3.Caption := aUPXVersions[UPX3];
+  LoadUPXHelp('UPX1_HELP', mmoUPX1.Lines);
+  LoadUPXHelp('UPX2_HELP', mmoUPX2.Lines);
+  LoadUPXHelp('UPX3_HELP', mmoUPX3.Lines);
+end;
 
 end.

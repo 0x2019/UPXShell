@@ -22,7 +22,11 @@
 
 LANGUAGE 0, 0
 
-// Replace a binary and rebuild the project to update the embedded UPX version.
+// Replace a binary and rebuild the project to update its version and command help.
 UPX1 EXEFILE "Resources\UPX1_x86.bin"
 UPX2 EXEFILE "Resources\UPX2_x86.bin"
 UPX3 EXEFILE "Resources\UPX3_x86.bin"
+
+UPX1_HELP TEXTFILE "Resources\UPX1_Help.txt"
+UPX2_HELP TEXTFILE "Resources\UPX2_Help.txt"
+UPX3_HELP TEXTFILE "Resources\UPX3_Help.txt"

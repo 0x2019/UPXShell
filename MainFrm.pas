@@ -209,9 +209,19 @@ var
 	ItemText: String;
 begin
 	MainForm.cmbUPX.Clear;
+  MainForm.lblIns.Caption := '';
 	for I := Low(aUPXVersions) to High(aUPXVersions) do
 	begin
 		ItemText := aUPXVersions[I];
+    if (I <> UPXC) then
+    begin
+      if MainForm.lblIns.Caption <> '' then
+      begin
+        MainForm.lblIns.Caption := MainForm.lblIns.Caption + ', ';
+      end;
+      MainForm.lblIns.Caption := MainForm.lblIns.Caption +
+        Copy(ItemText, Length('UPX ') + 1, MaxInt);
+    end;
 		if (I = UPXC) then
 		begin
 			if (FileExists(WorkDir +'upx.exe')) then

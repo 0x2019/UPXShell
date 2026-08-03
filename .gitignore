@@ -80,3 +80,10 @@ __recovery/
 
 # Boss dependency manager vendor folder https://github.com/HashLoad/boss
 modules/
+
+# Project-generated resource files
+/resources.res
+/Resources/UPXVersions.inc
+/Resources/UPX1_Help.txt
+/Resources/UPX2_Help.txt
+/Resources/UPX3_Help.txt
