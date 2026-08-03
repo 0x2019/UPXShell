@@ -632,7 +632,7 @@ end;
 {** This procedure handles the History Menu **}
 procedure TMainForm.HistoryPopUp(Sender: TObject);
 begin
-  LoadFile((Sender as TMenuItem).Caption);
+  LoadFile(StringReplace((Sender as TMenuItem).Caption, '&&', '&', [rfReplaceAll]));
 end;
 
 {** **}

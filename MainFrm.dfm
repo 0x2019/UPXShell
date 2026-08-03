@@ -723,6 +723,7 @@ object MainForm: TMainForm
               Font.Name = 'MS Sans Serif'
               Font.Style = []
               ParentFont = False
+              ShowAccelChar = False
             end
             object bvlOpenLeft: TBevel
               Left = 5
