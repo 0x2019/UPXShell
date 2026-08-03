@@ -215,17 +215,28 @@ begin
   cmbType.ItemIndex := 1;
   Active        := False;
   FGlobFileName := GlobFileName;
+  with ReadKey('MultiPackFolder', ktString) do
+  begin
+    if DirectoryExists(Str) then
+    begin
+      FDirName := Str;
+    end;
+  end;
 end;
 
 {** **}
 procedure TMultiForm.btnBrowseClick(Sender: TObject);
 var
-  Dir: string;
+  Dir:      string;
+  RegValue: TRegValue;
 begin
+  Dir := FDirName;
   if SelectDirectory(TranslateMsg('Select directory to compress:'), '', Dir) then
   begin
     FDirName       := Dir;
     lblDir.Caption := FDirName;
+    RegValue.Str   := FDirName;
+    StoreKey('MultiPackFolder', RegValue, ktString);
   end;
   {lblSelectedCap.Visible:= false;
   lblSelected.Visible:= false;
@@ -580,6 +591,10 @@ end;
 procedure TMultiForm.FormActivate(Sender: TObject);
 begin
   TranslateForm(MultiForm);
+  if FDirName <> '' then
+  begin
+    lblDir.Caption := FDirName;
+  end;
   if GlobFileName <> '' then
   begin
     lblDir.Caption := ExtractFileDir(GlobFileName);
