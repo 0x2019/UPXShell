@@ -155,11 +155,15 @@ begin
       end;
       FindResult := FindNext(FSearchRec);
     end;
-    { Now search the sub-directories of this current directory. Do this
-      by using FindFirst to loop through each subdirectory, then call
-      FindFiles (this function) again. This recursive process will
-      continue until all sub-directories have been searched. }
-    FindResult := FindFirst(APath + '*.*', faDirectory, DSearchRec);
+  finally
+    FindClose(FSearchRec);
+  end;
+  { Now search the sub-directories of this current directory. Do this
+    by using FindFirst to loop through each subdirectory, then call
+    FindFiles (this function) again. This recursive process will
+    continue until all sub-directories have been searched. }
+  FindResult := FindFirst(APath + '*.*', faDirectory, DSearchRec);
+  try
     while FindResult = 0 do
     begin
       if ((DSearchRec.Attr and faDirectory) = faDirectory) and not
@@ -170,7 +174,7 @@ begin
       FindResult := FindNext(DSearchRec);
     end;
   finally
-    FindClose(FSearchRec);
+    FindClose(DSearchRec);
   end;
 end;
 
@@ -184,20 +188,24 @@ begin
   APath      := GetDirectoryName(APath);
   FindResult := FindFirst(APath + FFileName, faAnyFile {+faHidden+
                           faSysFile+faReadOnly}, SearchRec);
-  while FindResult = 0 do
-  begin
-    SetLength(FFiles, length(FFiles) + 1);
-    with FFiles[high(FFiles)] do
+  try
+    while FindResult = 0 do
     begin
-      Skip           := False;
-      FullName       := APath + SearchRec.Name;
-      FileName       := ExtractFileName(APath + SearchRec.Name);
-      FilePath       := APath;
-      FileSize       := GetFileSize(FullName);
-      CompressedSize := -1;
-      CompressionResult := False;
+      SetLength(FFiles, length(FFiles) + 1);
+      with FFiles[high(FFiles)] do
+      begin
+        Skip           := False;
+        FullName       := APath + SearchRec.Name;
+        FileName       := ExtractFileName(APath + SearchRec.Name);
+        FilePath       := APath;
+        FileSize       := GetFileSize(FullName);
+        CompressedSize := -1;
+        CompressionResult := False;
+      end;
+      FindResult := FindNext(SearchRec);
     end;
-    FindResult := FindNext(SearchRec);
+  finally
+    FindClose(SearchRec);
   end;
 end;
 
