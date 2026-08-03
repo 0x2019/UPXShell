@@ -399,8 +399,11 @@ var
   Si:         Tstartupinfo;
   p:          Tprocessinformation;
   lpExitCode: cardinal;
+  ErrorCode: cardinal;
+  ErrorMessage: string;
 begin
   FillChar(Si, SizeOf(Si), 0);
+  FillChar(p, SizeOf(p), 0);
   with Si do
   begin
     cb          := SizeOf(Si);
@@ -413,11 +416,26 @@ begin
   FileName     := GetCompressParams;
   SetCurrentDir(WorkDir);
   ShowWindow(findwindow(nil, PChar('UPX Shell - MultiPack Engine')), 0);
-  Createprocess(nil, PChar(FileName), nil, nil, True,
-    Create_default_error_mode + GetPriority, nil, PChar(WorkDir), Si, p);
-  GetProgress(p, not MainForm.chkDecomp.Checked);
-  WaitForSingleObject(p.hProcess, infinite);
-  GetExitCodeProcess(p.hProcess, lpExitCode);
+  if not CreateProcess(nil, PChar(FileName), nil, nil, True,
+    Create_default_error_mode + GetPriority, nil, PChar(WorkDir), Si, p) then
+  begin
+    ErrorCode := GetLastError;
+    ErrorMessage := StringReplace(SysErrorMessage(ErrorCode), '%1',
+      'UPX', [rfReplaceAll]);
+    ErrorMessage := StringReplace(ErrorMessage, '%s', 'UPX', [rfReplaceAll]);
+    Application.MessageBox(PChar(ErrorMessage),
+      PChar(TranslateMsg('Error')), MB_OK or MB_ICONERROR);
+    Result := False;
+    Exit;
+  end;
+  try
+    GetProgress(p, not MainForm.chkDecomp.Checked);
+    WaitForSingleObject(p.hProcess, infinite);
+    GetExitCodeProcess(p.hProcess, lpExitCode);
+  finally
+    CloseHandle(p.hThread);
+    CloseHandle(p.hProcess);
+  end;
   if lpExitCode = 0 then
   begin
     Result := True;
@@ -480,14 +498,18 @@ procedure TMultiForm.PackFiles;
   end;
 
 var
-  I:         integer;
-  C:         cardinal;
-  CursorPos: TCoord;
-  StartTime: int64;
+  I:               integer;
+  C:               cardinal;
+  CursorPos:       TCoord;
+  StartTime:       int64;
+  TotalCount:      integer;
+  SuccessCount:    integer;
 begin
-  CursorPos.X := 0;
-  CursorPos.Y := 0;
-  C           := 0;
+  CursorPos.X     := 0;
+  CursorPos.Y     := 0;
+  C               := 0;
+  TotalCount      := 0;
+  SuccessCount    := 0;
   CreateConsole;
   QueryTime(False, StartTime);
   ExtractUPX(edExtract);
@@ -495,22 +517,33 @@ begin
   begin
     if not FFiles[I].Skip then
     begin
+      Inc(TotalCount);
+    end;
+  end;
+  for I := low(FFiles) to high(FFiles) do
+  begin
+    if not FFiles[I].Skip then
+    begin
+      MultiForm.pgbCurrent.Progress := 0;
       if PackFile(FFiles[I].FullName) then
       begin
+        Inc(SuccessCount);
         SetPackedItem(I);
       end
       else
       begin
         SetPackedItem(I, False);
       end;
-      MultiForm.pgbOverall.Progress := round((I + 1) / length(FFiles) * 100);
-      MultiForm.sttRatio.Width      := 0;
+      if TotalCount > 0 then
+      begin
+        MultiForm.pgbOverall.Progress :=
+          round(SuccessCount / TotalCount * 100);
+      end;
+      MultiForm.sttRatio.Width := 0;
       SetConsoleCursorPosition(hStdOut, CursorPos);
       FillConsoleOutputCharacter(hStdOut, #0, 1500, CursorPos, C);
     end;
   end;
-  MultiForm.pgbCurrent.Progress := 100;
-  MultiForm.pgbOverall.Progress := 100;
   ExtractUPX(edDelete);
   MultiForm.lblTimeCap.Visible  := True;
   MultiForm.lblTime.Visible     := True;

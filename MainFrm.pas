@@ -400,8 +400,11 @@ begin
     //Start the compression now
     CompressFile(GetCompressParams, Compress);
     SetCompressionVisuals(True);
-    MainForm.stbMain.Panels[1].Text := MainForm.stbMain.Panels[1].Text +
-			TranslateMsg(' (in ') + QueryTime(True, StartTime) + TranslateMsg(' seconds)');
+    if CompressionResult then
+    begin
+      MainForm.stbMain.Panels[1].Text := MainForm.stbMain.Panels[1].Text +
+			  TranslateMsg(' (in ') + QueryTime(True, StartTime) + TranslateMsg(' seconds)');
+    end;
 		if (Compress = cdCompress) and (SetupForm.chkScramble.Checked) then
     begin
       try

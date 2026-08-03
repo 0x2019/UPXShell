@@ -370,8 +370,7 @@ begin
   begin
     beep;
     ErrorMsg := TranslateMsg('UPX returned following error:\n') + ErrorMsg;
-    Application.MessageBox(PChar(ErrorMsg), PChar(TranslateMsg('Error')),
-      MB_OK + MB_ICONERROR);
+    Application.MessageBox(PChar(ErrorMsg), PChar(TranslateMsg('Error')), MB_OK + MB_ICONERROR);
   end;
 end;
 
@@ -383,8 +382,11 @@ var
   ProcInfo:   TProcessInformation;
   Params:     string;
   lpExitCode: cardinal;
+  ErrorCode: cardinal;
+  ErrorMessage: string;
 begin
   FillChar(StartInfo, SizeOf(StartInfo), 0);
+  FillChar(ProcInfo, SizeOf(ProcInfo), 0);
   with StartInfo do
   begin
     cb          := SizeOf(StartInfo);
@@ -393,10 +395,23 @@ begin
     StartInfo.lpTitle := PChar('UPX Shell 3.x - ' + GlobFileName);
   end;
   Params := WorkDir + 'upx.exe -t ' + GlobFileName;
-  Createprocess(nil, PChar(Params), nil, nil, True, Create_default_error_mode,
-    nil, PChar(WorkDir), StartInfo, ProcInfo);
-  Waitforsingleobject(ProcInfo.hProcess, infinite);
-  GetExitCodeProcess(ProcInfo.hProcess, lpExitCode);
+  if not CreateProcess(nil, PChar(Params), nil, nil, True,
+    Create_default_error_mode, nil, PChar(WorkDir), StartInfo, ProcInfo) then
+  begin
+    ErrorCode := GetLastError;
+    ErrorMessage := StringReplace(SysErrorMessage(ErrorCode), '%1', 'UPX', [rfReplaceAll]);
+    ErrorMessage := StringReplace(ErrorMessage, '%s', 'UPX', [rfReplaceAll]);
+    Application.MessageBox(PChar(ErrorMessage), PChar(TranslateMsg('Error')), MB_OK or MB_ICONERROR);
+    Result := 2;
+    Exit;
+  end;
+  try
+    WaitForSingleObject(ProcInfo.hProcess, infinite);
+    GetExitCodeProcess(ProcInfo.hProcess, lpExitCode);
+  finally
+    CloseHandle(ProcInfo.hThread);
+    CloseHandle(ProcInfo.hProcess);
+  end;
   Result := lpExitCode;
 end;
 
@@ -409,11 +424,14 @@ var
   lpExitCode:      cardinal;
   CompResult:      TCompResult;
   IsMultiProgress: boolean;
+  ErrorCode: cardinal;
+  ErrorMessage: string;
 begin
   ResetVisuals;
   CalcFileSize;
   AllocateConsole;
   FillChar(StartInfo, SizeOf(StartInfo), 0);
+  FillChar(ProcInfo, SizeOf(ProcInfo), 0);
   with StartInfo do
   begin
     cb          := SizeOf(StartInfo);
@@ -433,15 +451,32 @@ begin
   end;
 
   //Now start upx.exe with specified parameters
-  CreateProcess(nil, PChar(Params), nil, nil, True, Create_default_error_mode +
-    GetPriority, nil, PChar(WorkDir), StartInfo, ProcInfo);
-  FindWin; //Hide console window if it still shows
-  if Compress = cdCompress then
+  if not CreateProcess(nil, PChar(Params), nil, nil, True,
+    Create_default_error_mode + GetPriority, nil, PChar(WorkDir), StartInfo,
+    ProcInfo) then
   begin
-    GetProgress(ProcInfo, IsMultiProgress);
+    ErrorCode := GetLastError;
+    CompressionResult := False;
+    SetStatus(1, Compress);
+    ErrorMessage := StringReplace(SysErrorMessage(ErrorCode), '%1',
+      'UPX', [rfReplaceAll]);
+    ErrorMessage := StringReplace(ErrorMessage, '%s', 'UPX', [rfReplaceAll]);
+    Application.MessageBox(PChar(ErrorMessage), PChar(TranslateMsg('Error')), MB_OK or MB_ICONERROR);
+    ExtractUPX(edDelete);
+    Exit;
   end;
-  WaitForSingleObject(ProcInfo.hProcess, infinite);
-  GetExitCodeProcess(ProcInfo.hProcess, lpExitCode);
+  try
+    FindWin; //Hide console window if it still shows
+    if Compress = cdCompress then
+    begin
+      GetProgress(ProcInfo, IsMultiProgress);
+    end;
+    WaitForSingleObject(ProcInfo.hProcess, infinite);
+    GetExitCodeProcess(ProcInfo.hProcess, lpExitCode);
+  finally
+    CloseHandle(ProcInfo.hThread);
+    CloseHandle(ProcInfo.hProcess);
+  end;
   CompResult := SetStatus(lpExitCode, Compress);
   case CompResult of
     crSuccess:
