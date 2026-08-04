@@ -37,6 +37,7 @@ MainForm.chkBackup.Caption=Create Backup Copy
 MainForm.chkAutoCompress.Caption=Auto compress after loading
 MainForm.chkExitDone.Caption=Exit when done
 MainForm.chkTest.Caption=Test file after compression
+MainForm.chkOpenFileLocation.Caption=Open file location after compression
 MainForm.btnAdvanced.Caption=Advanced
 MainForm.lblCompressLevel.Caption=Compression level:
 MainForm.lblFaster.Caption=Faster

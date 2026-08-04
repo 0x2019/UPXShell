@@ -51,6 +51,7 @@ type
     chkAutoCompress: TCheckBox;
     chkBackup:    TCheckBox;
     chkExitDone:  TCheckBox;
+    chkOpenFileLocation: TCheckBox;
     chkTest:      TCheckBox;
     ClearHistory: TMenuItem;
     cmbLanguage:  TComboBox;
@@ -183,6 +184,7 @@ begin
   {** Start reading settings from the registry ReadKey('History', ktString).Str; **}
   MainForm.chkAutoCompress.Checked := ReadKey('AutoCompress', ktBoolean).Bool;
   MainForm.chkExitDone.Checked     := ReadKey('ExitDone', ktBoolean).Bool;
+  MainForm.chkOpenFileLocation.Checked := ReadKey('OpenFileLocation', ktBoolean).Bool;
   MainForm.chkBackup.Checked       := ReadKey('CreateBackup', ktBoolean).Bool;
   MainForm.chkTest.Checked         := ReadKey('TestFile', ktBoolean).Bool;
   MainForm.trbCompressLvl.Position := ReadKey('CompressionLevel', ktInteger).Int;
@@ -256,6 +258,9 @@ begin
 
   RegValue.Bool := MainForm.chkExitDone.Checked;
   StoreKey('ExitDone', RegValue, ktBoolean);
+
+  RegValue.Bool := MainForm.chkOpenFileLocation.Checked;
+  StoreKey('OpenFileLocation', RegValue, ktBoolean);
 
   RegValue.Bool := MainForm.chkBackup.Checked;
   StoreKey('CreateBackup', RegValue, ktBoolean);
@@ -368,6 +373,7 @@ procedure StartCompression; //initializes compression
       chkBackup.Enabled       := ControlEnabled;
       chkAutoCompress.Enabled := ControlEnabled;
       chkExitDone.Enabled     := ControlEnabled;
+      chkOpenFileLocation.Enabled := ControlEnabled;
       chkTest.Enabled         := ControlEnabled;
       btnAdvanced.Enabled     := ControlEnabled;
       btnMultiPck.Enabled     := ControlEnabled;
@@ -425,6 +431,12 @@ begin
       end;
     end;
     TouchFile(GlobFileName);
+    if (MainForm.chkOpenFileLocation.Checked) and (CompressionResult) and
+      (Compress = cdCompress) then
+    begin
+      ShellExecute(MainForm.Handle, 'open', 'explorer.exe',
+        PChar('/select,"' + GlobFileName + '"'), nil, SW_SHOWNORMAL);
+    end;
     if (MainForm.chkExitDone.Checked) and (CompressionResult) then
     begin
       Application.Terminate;

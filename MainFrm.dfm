@@ -1075,6 +1075,14 @@ object MainForm: TMainForm
             Caption = 'Test file after compression'
             TabOrder = 3
           end
+          object chkOpenFileLocation: TCheckBox
+            Left = 8
+            Top = 104
+            Width = 201
+            Height = 17
+            Caption = 'Open file location after compression'
+            TabOrder = 4
+          end
           object trbCompressLvl: TTrackBar
             Left = 211
             Top = 21
@@ -1082,7 +1090,7 @@ object MainForm: TMainForm
             Height = 22
             Min = 1
             Position = 10
-            TabOrder = 5
+            TabOrder = 6
             OnChange = trbCompressLvlChange
           end
           object cmbLanguage: TComboBox
@@ -1098,25 +1106,25 @@ object MainForm: TMainForm
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 6
+            TabOrder = 7
             OnChange = cmbLanguageChange
           end
           object btnMultiPck: TButton
             Left = 211
-            Top = 105
+            Top = 129
             Width = 145
             Height = 19
             Caption = 'MultiPack'
-            TabOrder = 7
+            TabOrder = 8
             OnClick = btnMultiPckClick
           end
           object btnAdvanced: TButton
             Left = 8
-            Top = 105
+            Top = 129
             Width = 145
             Height = 19
             Caption = 'Advanced'
-            TabOrder = 4
+            TabOrder = 5
             OnClick = btnAdvancedClick
           end
         end
