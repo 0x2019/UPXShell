@@ -241,11 +241,14 @@ begin
       begin
         Result := Result + ' --compress-exports=0';
       end;
-      //UPX v1.9x till v2.0x (UPX2) OR UPX v2.9x till v3.x (UPX3)
-			if (curUPXVersion = UPX2) or (curUPXVersion = UPX3) then
+      // Brute-force options are supported by all embedded UPX versions.
+			if (curUPXVersion <> UPXC) then
 			begin
-				//Check for the UPX2 and higher Brute, and -all-* checks
-				if SetupForm.chkBrute.Checked then
+				if SetupForm.chkUltraBrute.Checked then
+				begin
+					Result := Result + ' --ultra-brute';
+				end
+				else if SetupForm.chkBrute.Checked then
 				begin
 					Result := Result + ' --brute';
 				end

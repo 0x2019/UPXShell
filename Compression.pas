@@ -455,8 +455,9 @@ begin
 
   //Check if UPX will do more then only 1 compression cycle.
   IsMultiProgress := False;
-  if ((curUPXVersion = UPX2) or (curUPXVersion = UPX3)) and
-    (SetupForm.chkBrute.Checked or SetupForm.chkFilters.Checked or SetupForm.chkMethods.Checked) then
+  if (curUPXVersion <> UPXC) and
+    (SetupForm.chkUltraBrute.Checked or SetupForm.chkBrute.Checked or
+      SetupForm.chkFilters.Checked or SetupForm.chkMethods.Checked) then
   begin
     IsMultiProgress := True;
   end;
