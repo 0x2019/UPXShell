@@ -473,12 +473,11 @@ procedure TMultiForm.PackFiles;
   var
     lItem: TListItem;
   begin
+    lItem := lvFiles.Items[Index];
     if Success then
     begin
       FFiles[Index].CompressionResult := True;
       FFiles[Index].CompressedSize := GetFileSize(FFiles[Index].FullName);
-      lItem := lvFiles.FindCaption(0, FFiles[Index].FileName,
-        False, True, True);
       if lItem <> nil then
       begin
         lItem.SubItems[2] := ProcessSize(FFiles[Index].CompressedSize);
@@ -488,8 +487,6 @@ procedure TMultiForm.PackFiles;
     else
     begin
       FFiles[Index].CompressionResult := False;
-      lItem := lvFiles.FindCaption(0, FFiles[Index].FileName,
-        False, True, True);
       if lItem <> nil then
       begin
         lItem.SubItems[3] := TranslateMsg('Failed');
@@ -595,8 +592,8 @@ begin
   if FDirName <> '' then
   begin
     lblDir.Caption := FDirName;
-  end;
-  if GlobFileName <> '' then
+  end
+  else if GlobFileName <> '' then
   begin
     lblDir.Caption := ExtractFileDir(GlobFileName);
   end;
