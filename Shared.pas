@@ -373,7 +373,7 @@ begin
   DiffRGB[0]  := GetRValue(ColorToRGB(EndColor)) - BeginRGB[0];
   DiffRGB[1]  := GetGValue(ColorToRGB(EndColor)) - BeginRGB[1];
   DiffRGB[2]  := GetBValue(ColorToRGB(EndColor)) - BeginRGB[2];
-  for I := 0 to 255 do
+  for I := 0 to ColorCycles - 1 do
   begin
     R         := BeginRGB[0] + MulDiv(I, DiffRGB[0], ColorCycles - 1);
     G         := BeginRGB[1] + MulDiv(I, DiffRGB[1], ColorCycles - 1);
@@ -390,16 +390,16 @@ var
   Temp:     TBitmap;
   ColorArr: TCustomColorArray;
 begin
+  ColorArr := CalculateColorTable(StartColor, EndColor, ColorCycles);
+  Temp := TBitmap.Create;
   try
-    ColorArr    := CalculateColorTable(StartColor, EndColor, ColorCycles);
-    Temp        := TBitmap.Create;
     Temp.Width  := Width;
     Temp.Height := Height;
     Rec.Top     := 0;
     Rec.Bottom  := Height;
     with Temp do
     begin
-      for I := 0 to ColorCycles do
+      for I := 0 to ColorCycles - 1 do
       begin
         Rec.Left           := MulDiv(I, Width, ColorCycles);
         Rec.Right          := MulDiv(I + 1, Width, ColorCycles);
