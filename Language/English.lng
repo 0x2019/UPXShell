@@ -100,6 +100,10 @@ SetupForm.lblUPX2Only.Caption=UPX v1.9x Only:
 SetupForm.chkBrute.Caption=Brute
 SetupForm.chkMethods.Caption=All Methods
 SetupForm.chkFilters.Caption=All Filters
+SetupForm.lblLZMA.Caption=LZMA:
+SetupForm.cmbLZMA.0=Auto
+SetupForm.cmbLZMA.1=Enable
+SetupForm.cmbLZMA.2=Disable
 
 ;MultiPack Form
 MultiForm.Caption=MultiPack

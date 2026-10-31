@@ -59,7 +59,8 @@ type
     chkMethods:     TCheckBox;
     lblCompOps: TLabel;
     chkFilters:     TCheckBox;
-    chkLZMA: TCheckBox;
+    lblLZMA: TLabel;
+    cmbLZMA: TComboBox;
     chkUltraBrute: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure txtCommandsChange(Sender: TObject);
@@ -99,6 +100,7 @@ const
 procedure TSetupForm.LoadAdvSettings;
 var
   IconIndex: integer;
+  LZMAIndex: integer;
 begin
   // Now all the app settings will get loaded..
   chkScramble.Checked    := ReadKey('Scramble', ktBoolean).Bool;
@@ -113,8 +115,17 @@ begin
   chkBrute.Checked       := ReadKey('Brute', ktBoolean).Bool;
   chkMethods.Checked     := ReadKey('AllMethods', ktBoolean).Bool;
 	chkFilters.Checked     := ReadKey('AllFilters', ktBoolean).Bool;
-	chkLZMA.Checked        := ReadKey('LZMA', ktBoolean).Bool;
   chkUltraBrute.Checked  := ReadKey('UltraBrute', ktBoolean).Bool;
+
+  LZMAIndex := ReadKey('LZMA', ktInteger).Int;
+  if (LZMAIndex >= 0) and (LZMAIndex < cmbLZMA.Items.Count) then
+  begin
+    cmbLZMA.ItemIndex := LZMAIndex;
+  end
+  else
+  begin
+    cmbLZMA.ItemIndex := 0;
+  end;
 
   if (ReadKey('Priority', ktInteger).Int <> -1) then
   begin
@@ -209,8 +220,15 @@ begin
 	RegValue.Bool := chkFilters.Checked;
 	StoreKey('AllFilters', RegValue, ktBoolean);
 
-	RegValue.Bool := chkLZMA.Checked;
-	StoreKey('LZMA', RegValue, ktBoolean);
+  if (cmbLZMA.ItemIndex >= 0) and (cmbLZMA.ItemIndex < cmbLZMA.Items.Count) then
+  begin
+    RegValue.Int := cmbLZMA.ItemIndex;
+  end
+  else
+  begin
+    RegValue.Int := 0;
+  end;
+  StoreKey('LZMA', RegValue, ktInteger);
 
   RegValue.Bool := chkUltraBrute.Checked;
 	StoreKey('UltraBrute', RegValue, ktBoolean);

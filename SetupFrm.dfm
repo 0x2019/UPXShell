@@ -5,7 +5,7 @@ object SetupForm: TSetupForm
   BorderIcons = []
   BorderStyle = bsDialog
   Caption = 'Advanced options'
-  ClientHeight = 364
+  ClientHeight = 380
   ClientWidth = 271
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,7 +20,7 @@ object SetupForm: TSetupForm
   TextHeight = 13
   object pnlBottom: TPanel
     Left = 1
-    Top = 256
+    Top = 272
     Width = 268
     Height = 78
     BevelInner = bvRaised
@@ -64,7 +64,7 @@ object SetupForm: TSetupForm
   end
   object btnOk: TButton
     Left = 98
-    Top = 337
+    Top = 353
     Width = 75
     Height = 25
     Caption = 'Ok'
@@ -282,7 +282,7 @@ object SetupForm: TSetupForm
     Left = 1
     Top = 182
     Width = 268
-    Height = 71
+    Height = 87
     BevelInner = bvRaised
     BevelOuter = bvLowered
     ParentShowHint = False
@@ -315,19 +315,6 @@ object SetupForm: TSetupForm
     end
     object chkMethods: TCheckBox
       Left = 8
-      Top = 34
-      Width = 129
-      Height = 17
-      Hint = 
-        'Compress the program several times, using all available compress' +
-        'ion methods.'#13#10'This may improve the compression ratio in some cas' +
-        'es,'#13#10'but usually the default method gives the best results anywa' +
-        'y.'
-      Caption = 'All Methods'
-      TabOrder = 1
-    end
-    object chkFilters: TCheckBox
-      Left = 8
       Top = 50
       Width = 129
       Height = 17
@@ -336,20 +323,47 @@ object SetupForm: TSetupForm
         'ion methods.'#13#10'This may improve the compression ratio in some cas' +
         'es,'#13#10'but usually the default method gives the best results anywa' +
         'y.'
-      Caption = 'All Filters'
+      Caption = 'All Methods'
       TabOrder = 2
     end
-    object chkLZMA: TCheckBox
-      Left = 136
-      Top = 18
+    object chkFilters: TCheckBox
+      Left = 8
+      Top = 66
       Width = 129
       Height = 17
-      Hint = 'This uses the NEW LZMA feature'
-      Caption = 'Use LZMA'
+      Hint = 
+        'Compress the program several times, using all available compress' +
+        'ion methods.'#13#10'This may improve the compression ratio in some cas' +
+        'es,'#13#10'but usually the default method gives the best results anywa' +
+        'y.'
+      Caption = 'All Filters'
       TabOrder = 3
     end
+    object lblLZMA: TLabel
+      Left = 144
+      Top = 18
+      Width = 32
+      Height = 13
+      Caption = 'LZMA:'
+      FocusControl = cmbLZMA
+    end
+    object cmbLZMA: TComboBox
+      Left = 140
+      Top = 34
+      Width = 125
+      Height = 21
+      Hint = 'Control the use of LZMA compression'
+      Style = csDropDownList
+      ItemIndex = 0
+      TabOrder = 4
+      Text = 'Auto'
+      Items.Strings = (
+        'Auto'
+        'Enable'
+        'Disable')
+    end
     object chkUltraBrute: TCheckBox
-      Left = 136
+      Left = 8
       Top = 34
       Width = 129
       Height = 17
@@ -357,7 +371,7 @@ object SetupForm: TSetupForm
         'Ultra Brute is almoste the same as Brute, but it tries more vari' +
         'ants of compression.'
       Caption = 'Ultra Brute'
-      TabOrder = 4
+      TabOrder = 1
       OnClick = chkUltraBruteClick
     end
   end

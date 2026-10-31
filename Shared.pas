@@ -268,14 +268,16 @@ begin
 					end;
 				end;
 
-				//Check for the new UPX3 LZMA compression check
-				if (curUPXVersion = UPX3) then
-				begin
-					if SetupForm.chkLZMA.Checked then
-					begin
-						Result := Result + ' --lzma';
-					end;
-				end;
+        case SetupForm.cmbLZMA.ItemIndex of
+          1:
+          begin
+            Result := Result + ' --lzma';
+          end;
+          2:
+          begin
+            Result := Result + ' --no-lzma';
+          end;
+        end;
       end;
       Result := Result + ' ' + SetupForm.txtCommands.Text;
     end
