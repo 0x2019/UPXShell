@@ -383,6 +383,7 @@ var
   StartInfo:  Tstartupinfo;
   ProcInfo:   TProcessInformation;
   Params:     string;
+  UPXPath: string;
   lpExitCode: cardinal;
   ErrorCode: cardinal;
   ErrorMessage: string;
@@ -396,8 +397,16 @@ begin
     wShowWindow := 2;
     StartInfo.lpTitle := PChar('UPX Shell 3.x - ' + GlobFileName);
   end;
-  Params := WorkDir + 'upx.exe -t ' + GlobFileName;
-  if not CreateProcess(nil, PChar(Params), nil, nil, True,
+  if curUPXVersion = UPXC then
+  begin
+    UPXPath := WorkDir + 'upx.exe';
+  end
+  else
+  begin
+    UPXPath := WorkDir + 'UPXE.EXE';
+  end;
+  Params := '"' + UPXPath + '" -t "' + GlobFileName + '"';
+  if not CreateProcess(PChar(UPXPath), PChar(Params), nil, nil, True,
     Create_default_error_mode, nil, PChar(WorkDir), StartInfo, ProcInfo) then
   begin
     ErrorCode := GetLastError;
@@ -505,6 +514,10 @@ begin
   begin
     lpExitCode := TestFile;
     SetStatusTest(lpExitCode);
+    if lpExitCode = 2 then
+    begin
+      CompressionResult := False;
+    end;
   end;
   ExtractUPX(edDelete);
   if AlreadyPacked then
