@@ -227,13 +227,14 @@ end;
 {** **}
 procedure TMultiForm.btnBrowseClick(Sender: TObject);
 var
-  Dir:      string;
-  RegValue: TRegValue;
+  Directories: TArray<string>;
+  RegValue:    TRegValue;
 begin
-  Dir := FDirName;
-  if SelectDirectory(TranslateMsg('Select directory to compress:'), '', Dir) then
+  if SelectDirectory(FDirName, Directories, [],
+    TranslateMsg('Select directory to compress:'), '', '', Handle) and
+    (Length(Directories) > 0) then
   begin
-    FDirName       := Dir;
+    FDirName       := Directories[0];
     lblDir.Caption := FDirName;
     RegValue.Str   := FDirName;
     StoreKey('MultiPackFolder', RegValue, ktString);
