@@ -225,13 +225,14 @@ object SetupForm: TSetupForm
       Height = 21
       Hint = 'Select what to do with icons'
       Style = csDropDownList
-      ItemIndex = 2
+      ItemIndex = 0
       TabOrder = 5
       Text = 'Don'#39't compress'
       Items.Strings = (
-        'All but 1st directory'
+        'Don'#39't compress'
         'All but 1st icon'
-        'Don'#39't compress')
+        'All but 1st directory'
+        'All')
     end
     object chkExports: TCheckBox
       Left = 8

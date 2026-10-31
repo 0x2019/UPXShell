@@ -222,7 +222,7 @@ begin
       case SetupForm.cmbIcons.ItemIndex of
         0:
         begin
-          Result := Result + ' --compress-icons=2';
+          Result := Result + ' --compress-icons=0';
         end;
         1:
         begin
@@ -230,7 +230,11 @@ begin
         end;
         2:
         begin
-          Result := Result + ' --compress-icons=0';
+          Result := Result + ' --compress-icons=2';
+        end;
+        3:
+        begin
+          Result := Result + ' --compress-icons=3';
         end;
       end;
       if SetupForm.chkExports.Checked then

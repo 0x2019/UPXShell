@@ -203,8 +203,7 @@ procedure ParseLine(const Line: string);
         end
         else
         begin
-          //Commented out the '''' single quote detection. This has been requested.
-          if (tKind = tkData) and CharInSet(InStr[I], ['"', '''']) then
+          if (tKind = tkData) and (InStr[I] = '"') then
           begin
             //Do Nothing
           end

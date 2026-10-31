@@ -91,8 +91,14 @@ uses
 
 {$R *.dfm}
 
+const
+  // Keep the original Icons registry values when changing the display order.
+  IconValues: array[0..3] of integer = (2, 1, 0, 3);
+
 {** This procedure loads advanced application settings from the registry **}
 procedure TSetupForm.LoadAdvSettings;
+var
+  IconIndex: integer;
 begin
   // Now all the app settings will get loaded..
   chkScramble.Checked    := ReadKey('Scramble', ktBoolean).Bool;
@@ -119,13 +125,14 @@ begin
     cmbPriority.ItemIndex := 1;
   end;
 
-  if (ReadKey('Icons', ktInteger).Int <> -1) then
+  IconIndex := ReadKey('Icons', ktInteger).Int;
+  if (IconIndex >= Low(IconValues)) and (IconIndex <= High(IconValues)) then
   begin
-    cmbIcons.ItemIndex := ReadKey('Icons', ktInteger).Int;
+    cmbIcons.ItemIndex := IconValues[IconIndex];
   end
   else
   begin
-    cmbIcons.ItemIndex := 2;
+    cmbIcons.ItemIndex := 0;
   end;
 
   if (ReadKey('AdvCompressionSeed', ktInteger).Int <> -1) then
@@ -182,7 +189,15 @@ begin
   RegValue.Int := cmbPriority.ItemIndex;
   StoreKey('Priority', RegValue, ktInteger);
 
-  RegValue.Int := cmbIcons.ItemIndex;
+  if (cmbIcons.ItemIndex >= Low(IconValues)) and
+    (cmbIcons.ItemIndex <= High(IconValues)) then
+  begin
+    RegValue.Int := IconValues[cmbIcons.ItemIndex];
+  end
+  else
+  begin
+    RegValue.Int := IconValues[0];
+  end;
   StoreKey('Icons', RegValue, ktInteger);
 
 	RegValue.Bool := chkBrute.Checked;
