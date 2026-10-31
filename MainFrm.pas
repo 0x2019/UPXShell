@@ -243,8 +243,10 @@ begin
 	end
 	else
 	begin
-		MainForm.cmbUPX.ItemIndex := 1; //UPX2.0x
+		MainForm.cmbUPX.ItemIndex := Ord(UPXC) - 1;
 	end;
+	bStdUPXVersion := MainForm.cmbUPX.ItemIndex;
+	curUPXVersion  := TUPXVersions(bStdUPXVersion);
 end;
 
 {** This procedure saves the app settings to registry **}
