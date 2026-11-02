@@ -61,6 +61,8 @@ type
     chkFilters:     TCheckBox;
     lblLZMA: TLabel;
     cmbLZMA: TComboBox;
+    lblOverlay: TLabel;
+    cmbOverlay: TComboBox;
     chkUltraBrute: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure txtCommandsChange(Sender: TObject);
@@ -101,6 +103,7 @@ procedure TSetupForm.LoadAdvSettings;
 var
   IconIndex: integer;
   LZMAIndex: integer;
+  OverlayIndex: integer;
 begin
   // Now all the app settings will get loaded..
   chkScramble.Checked    := ReadKey('Scramble', ktBoolean).Bool;
@@ -125,6 +128,16 @@ begin
   else
   begin
     cmbLZMA.ItemIndex := 0;
+  end;
+
+  OverlayIndex := ReadKey('Overlay', ktInteger).Int;
+  if (OverlayIndex >= 0) and (OverlayIndex < cmbOverlay.Items.Count) then
+  begin
+    cmbOverlay.ItemIndex := OverlayIndex;
+  end
+  else
+  begin
+    cmbOverlay.ItemIndex := 0;
   end;
 
   if (ReadKey('Priority', ktInteger).Int <> -1) then
@@ -229,6 +242,17 @@ begin
     RegValue.Int := 0;
   end;
   StoreKey('LZMA', RegValue, ktInteger);
+
+  if (cmbOverlay.ItemIndex >= 0) and
+    (cmbOverlay.ItemIndex < cmbOverlay.Items.Count) then
+  begin
+    RegValue.Int := cmbOverlay.ItemIndex;
+  end
+  else
+  begin
+    RegValue.Int := 0;
+  end;
+  StoreKey('Overlay', RegValue, ktInteger);
 
   RegValue.Bool := chkUltraBrute.Checked;
 	StoreKey('UltraBrute', RegValue, ktBoolean);

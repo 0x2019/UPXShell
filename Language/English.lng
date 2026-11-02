@@ -104,6 +104,11 @@ SetupForm.lblLZMA.Caption=LZMA:
 SetupForm.cmbLZMA.0=Auto
 SetupForm.cmbLZMA.1=Enable
 SetupForm.cmbLZMA.2=Disable
+SetupForm.lblOverlay.Caption=Overlay:
+SetupForm.cmbOverlay.0=Copy
+SetupForm.cmbOverlay.1=Skip
+SetupForm.cmbOverlay.2=Strip (dangerous)
+SetupForm.cmbOverlay.Hint=Copy preserves overlay data. Skip leaves files with an overlay unchanged. Strip removes overlay data and may break the program.
 
 ;MultiPack Form
 MultiForm.Caption=MultiPack

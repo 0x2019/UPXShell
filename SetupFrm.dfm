@@ -5,7 +5,7 @@ object SetupForm: TSetupForm
   BorderIcons = []
   BorderStyle = bsDialog
   Caption = 'Advanced options'
-  ClientHeight = 380
+  ClientHeight = 396
   ClientWidth = 271
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,7 +20,7 @@ object SetupForm: TSetupForm
   TextHeight = 13
   object pnlBottom: TPanel
     Left = 1
-    Top = 272
+    Top = 288
     Width = 268
     Height = 78
     BevelInner = bvRaised
@@ -64,7 +64,7 @@ object SetupForm: TSetupForm
   end
   object btnOk: TButton
     Left = 98
-    Top = 353
+    Top = 369
     Width = 75
     Height = 25
     Caption = 'Ok'
@@ -282,7 +282,7 @@ object SetupForm: TSetupForm
     Left = 1
     Top = 182
     Width = 268
-    Height = 87
+    Height = 103
     BevelInner = bvRaised
     BevelOuter = bvLowered
     ParentShowHint = False
@@ -361,6 +361,31 @@ object SetupForm: TSetupForm
         'Auto'
         'Enable'
         'Disable')
+    end
+    object lblOverlay: TLabel
+      Left = 144
+      Top = 58
+      Width = 43
+      Height = 13
+      Caption = 'Overlay:'
+      FocusControl = cmbOverlay
+    end
+    object cmbOverlay: TComboBox
+      Left = 140
+      Top = 74
+      Width = 125
+      Height = 21
+      Hint =
+        'Copy preserves overlay data. Skip leaves files with an overlay un' +
+        'changed. Strip removes overlay data and may break the program.'
+      Style = csDropDownList
+      ItemIndex = 0
+      TabOrder = 5
+      Text = 'Copy'
+      Items.Strings = (
+        'Copy'
+        'Skip'
+        'Strip (dangerous)')
     end
     object chkUltraBrute: TCheckBox
       Left = 8

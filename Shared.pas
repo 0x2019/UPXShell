@@ -279,6 +279,20 @@ begin
           end;
         end;
       end;
+      case SetupForm.cmbOverlay.ItemIndex of
+        0:
+        begin
+          Result := Result + ' --overlay=copy';
+        end;
+        1:
+        begin
+          Result := Result + ' --overlay=skip';
+        end;
+        2:
+        begin
+          Result := Result + ' --overlay=strip';
+        end;
+      end;
       Result := Result + ' ' + SetupForm.txtCommands.Text;
     end
     else
