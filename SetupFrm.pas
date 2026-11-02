@@ -59,6 +59,7 @@ type
     chkMethods:     TCheckBox;
     lblCompOps: TLabel;
     chkFilters:     TCheckBox;
+    chkPreserveTime: TCheckBox;
     lblLZMA: TLabel;
     cmbLZMA: TComboBox;
     lblOverlay: TLabel;
@@ -119,6 +120,15 @@ begin
   chkMethods.Checked     := ReadKey('AllMethods', ktBoolean).Bool;
 	chkFilters.Checked     := ReadKey('AllFilters', ktBoolean).Bool;
   chkUltraBrute.Checked  := ReadKey('UltraBrute', ktBoolean).Bool;
+
+  if (ReadKey('PreserveFileTime', ktInteger).Int <> -1) then
+  begin
+    chkPreserveTime.Checked := ReadKey('PreserveFileTime', ktBoolean).Bool;
+  end
+  else
+  begin
+    chkPreserveTime.Checked := True;
+  end;
 
   LZMAIndex := ReadKey('LZMA', ktInteger).Int;
   if (LZMAIndex >= 0) and (LZMAIndex < cmbLZMA.Items.Count) then
@@ -232,6 +242,9 @@ begin
 
 	RegValue.Bool := chkFilters.Checked;
 	StoreKey('AllFilters', RegValue, ktBoolean);
+
+  RegValue.Bool := chkPreserveTime.Checked;
+  StoreKey('PreserveFileTime', RegValue, ktBoolean);
 
   if (cmbLZMA.ItemIndex >= 0) and (cmbLZMA.ItemIndex < cmbLZMA.Items.Count) then
   begin

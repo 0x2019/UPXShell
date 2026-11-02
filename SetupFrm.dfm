@@ -339,6 +339,17 @@ object SetupForm: TSetupForm
       Caption = 'All Filters'
       TabOrder = 3
     end
+    object chkPreserveTime: TCheckBox
+      Left = 8
+      Top = 82
+      Width = 129
+      Height = 17
+      Hint = 'Keep the original file modification time after compression'
+      Caption = 'Preserve file time'
+      Checked = True
+      State = cbChecked
+      TabOrder = 4
+    end
     object lblLZMA: TLabel
       Left = 144
       Top = 18
@@ -355,7 +366,7 @@ object SetupForm: TSetupForm
       Hint = 'Control the use of LZMA compression'
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 4
+      TabOrder = 5
       Text = 'Auto'
       Items.Strings = (
         'Auto'
@@ -380,7 +391,7 @@ object SetupForm: TSetupForm
         'changed. Strip removes overlay data and may break the program.'
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 5
+      TabOrder = 6
       Text = 'Copy'
       Items.Strings = (
         'Copy'

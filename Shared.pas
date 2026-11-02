@@ -293,6 +293,10 @@ begin
           Result := Result + ' --overlay=strip';
         end;
       end;
+      if not SetupForm.chkPreserveTime.Checked then
+      begin
+        Result := Result + ' --no-time';
+      end;
       Result := Result + ' ' + SetupForm.txtCommands.Text;
     end
     else
