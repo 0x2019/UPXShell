@@ -59,7 +59,7 @@ var
 begin
   ResourceStream := TResourceStream.Create(HInstance, ResName, PChar('TEXTFILE'));
   try
-    Lines.LoadFromStream(ResourceStream, TEncoding.ASCII);
+    Lines.LoadFromStream(ResourceStream);
   finally
     ResourceStream.Free;
   end;

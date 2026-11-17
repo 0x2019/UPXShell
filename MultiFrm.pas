@@ -227,14 +227,10 @@ end;
 {** **}
 procedure TMultiForm.btnBrowseClick(Sender: TObject);
 var
-  Directories: TArray<string>;
-  RegValue:    TRegValue;
+  RegValue: TRegValue;
 begin
-  if SelectDirectory(FDirName, Directories, [],
-    TranslateMsg('Select directory to compress:'), '', '', Handle) and
-    (Length(Directories) > 0) then
+  if SelectDirectory(FDirName, [], 0) then
   begin
-    FDirName       := Directories[0];
     lblDir.Caption := FDirName;
     RegValue.Str   := FDirName;
     StoreKey('MultiPackFolder', RegValue, ktString);
@@ -307,7 +303,7 @@ begin
   begin
     Active := True;
     EnableButtons(False);
-    lvFiles.Clear;
+    lvFiles.Items.Clear;
     SetLength(FFiles, 0);
     Screen.Cursor := crHourGlass;
     FFileName     := Trim(Copy(cmbType.Text + ' ', 1, Pos(' ', cmbType.Text + ' ') - 1));
@@ -345,6 +341,7 @@ begin
   CursorPos.x := 0;
   CursorPos.y := 0;
   Progress    := 0;
+  Offset      := 0;
   while True do
   begin
     ReadConsoleOutputCharacter(hStdOut, Line, 80, CursorPos, CharsRead);

@@ -28,6 +28,7 @@ uses
   Windows, Forms, Classes, Graphics, Dialogs, Globals;
 
 procedure Split(const Delimiter: char; const Input: string; const Strings: TStrings);
+function JoinStrings(const Delimiter: char; const Strings: TStrings): string;
 function GetPriority: cardinal; //Gets priority selected on the SetupForm
 function AlreadyPacked: boolean;
 function GetCompressParams: string;
@@ -66,11 +67,36 @@ uses
   MainFrm, SetupFrm;
 
 procedure Split(const Delimiter: char; const Input: string; const Strings: TStrings);
+var
+  P:   integer;
+  S:   string;
 begin
   Assert(Assigned(Strings));
   Strings.Clear;
-  Strings.Delimiter     := Delimiter;
-  Strings.DelimitedText := Input;
+  S   := Input;
+  P   := Pos(Delimiter, S);
+  while P <> 0 do
+  begin
+    Strings.Add(Copy(S, 1, P - 1));
+    Delete(S, 1, P);
+    P := Pos(Delimiter, S);
+  end;
+  Strings.Add(S);
+end;
+
+function JoinStrings(const Delimiter: char; const Strings: TStrings): string;
+var
+  I: integer;
+begin
+  Result := '';
+  for I := 0 to Strings.Count - 1 do
+  begin
+    if I > 0 then
+    begin
+      Result := Result + Delimiter;
+    end;
+    Result := Result + Strings[I];
+  end;
 end;
 
 //Extract resources from the upxmiracle.exe (upx.exe)
@@ -190,11 +216,8 @@ begin
       begin
         Result := Result + ' --best';
       end;
-      if SetupForm.chkCompression.Checked then
-      begin
-        Result := Result + ' --crp-ms=' +
-          IntToStr(SetupForm.trbCompression.Position);
-      end;
+      { --crp-ms is obsolete (NRV-era) and not supported by bundled UPX 3.x/4.x/5.x;
+        omit it to avoid compression errors when "Additional compression" is checked. }
       if SetupForm.chkForce.Checked then
       begin
         Result := Result + ' --force';
@@ -245,38 +268,21 @@ begin
       begin
         Result := Result + ' --compress-exports=0';
       end;
-      // Brute-force options are supported by all embedded UPX versions.
-			if (curUPXVersion <> UPXC) then
-			begin
-				if SetupForm.chkUltraBrute.Checked then
-				begin
-					Result := Result + ' --ultra-brute';
-				end
-				else if SetupForm.chkBrute.Checked then
-				begin
-					Result := Result + ' --brute';
-				end
-				else
-				begin
-					if SetupForm.chkMethods.Checked then
-					begin
-						Result := Result + ' --all-methods';
-					end;
-					if SetupForm.chkFilters.Checked then
-					begin
-						Result := Result + ' --all-filters';
-					end;
-				end;
+      // Brute-force: --brute/--ultra-brute supported by bundled UPX 3.09/4.2.4/5.3.0.
+      // --all-methods/--all-filters were UPX 1.x options and are not supported by them.
+      if (curUPXVersion <> UPXC) then
+      begin
+        if SetupForm.chkUltraBrute.Checked then
+          Result := Result + ' --ultra-brute'
+        else if SetupForm.chkBrute.Checked then
+          Result := Result + ' --brute';
 
-        case SetupForm.cmbLZMA.ItemIndex of
-          1:
-          begin
+        // --lzma is supported by UPX 4.x/5.x (UPX2/UPX3); UPX 3.09 does not support it.
+        // "Auto"/"Disable" pass no flag (NRV is default without --lzma).
+        if (curUPXVersion = UPX2) or (curUPXVersion = UPX3) then
+        begin
+          if SetupForm.cmbLZMA.ItemIndex = 1 then
             Result := Result + ' --lzma';
-          end;
-          2:
-          begin
-            Result := Result + ' --no-lzma';
-          end;
         end;
       end;
       case SetupForm.cmbOverlay.ItemIndex of
@@ -293,7 +299,8 @@ begin
           Result := Result + ' --overlay=strip';
         end;
       end;
-      if not SetupForm.chkPreserveTime.Checked then
+      // --no-time is not supported by UPX 3.09 (UPX1)
+      if (not SetupForm.chkPreserveTime.Checked) and (curUPXVersion <> UPX1) then
       begin
         Result := Result + ' --no-time';
       end;
@@ -492,7 +499,7 @@ begin
     if PropInfo <> nil then
     begin
       TK := PropInfo^.PropType^.Kind;
-      if TK in [tkString, tkLString, tkWString, tkUString] then
+      if TK in [tkString, tkLString, tkWString] then
       begin
         SetStrProp(AComp, PropInfo, AValue);
       end;
@@ -768,7 +775,7 @@ begin
   if PropInfo <> nil then
   begin
     TK := PropInfo^.PropType^.Kind;
-    if TK in [tkString, tkLString, tkWString, tkUString] then
+    if TK in [tkString, tkLString, tkWString] then
     begin
       Result := GetStrProp(Component, PropInfo);
     end;
@@ -795,7 +802,7 @@ begin
   Result := True;
   for I := 1 to length(InStr) do
   begin
-    if not CharInSet(InStr[I], ['0'..'9']) then
+    if not (InStr[I] in ['0'..'9']) then
     begin
       Result := False;
       break;
@@ -813,7 +820,7 @@ begin
   if PropInfo <> nil then
   begin
     TK := PropInfo^.PropType^.Kind;
-    if TK in [tkString, tkLString, tkWString, tkUString] then
+    if TK in [tkString, tkLString, tkWString] then
     begin
       Result := True;
     end;
@@ -854,3 +861,4 @@ begin
 end;
 
 end.
+

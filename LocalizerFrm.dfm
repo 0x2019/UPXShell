@@ -14,7 +14,6 @@ object LocalizerForm: TLocalizerForm
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
-  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -63,11 +62,6 @@ object LocalizerForm: TLocalizerForm
     VertScrollBar.Smooth = True
     VertScrollBar.Tracking = True
     Align = alClient
-    BevelEdges = []
-    BevelInner = bvLowered
-    BevelOuter = bvRaised
-    BevelKind = bkSoft
-    BevelWidth = 3
     TabOrder = 2
   end
 end

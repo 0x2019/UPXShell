@@ -166,7 +166,7 @@ var
 	Extension:      integer = 1;				//Contains OpenDialog last selected extension
 	GlobFileSize:   integer;						//Contains file size for ratio calculation
 	Busy:           boolean = False;		//Set when compressing or scrambling files
-	hStdOut:        THandle;						//Contains handle to standard console output
+	hStdOut:        Cardinal;						//Contains handle to standard console output
 	CompressionResult: boolean = False;	// Result of the compress operation
 	Messages:       array[1..MsgCount] of string; //Contains the translated messages
 	sUPXVersion:    string;							//Contains the UPXVersion the file is compressed with
@@ -314,7 +314,7 @@ begin
   begin
     QueryPerformanceFrequency(Frequency);
     QueryPerformanceCounter(EndTime);
-    Time   := FloatToStr((EndTime - StartTime) / Frequency, FormatSettings);
+    Time   := FloatToStr((EndTime - StartTime) / Frequency);
     Result := Time;
   end
   else
@@ -458,7 +458,6 @@ var
   fStream:    TFileStream;
   chain:      array[1..4] of char; //This will contain something like '1.20'  begin
   I:          integer;
-  upxVersion: single;
 begin
   if FileExists(FilePath) then
   begin
@@ -471,10 +470,11 @@ begin
           fStream.Position := 1;
           fStream.Seek(offsets[I], soFromBeginning);
           fStream.ReadBuffer(chain, SizeOf(chain));
-          if (TryStrToFloat(chain, upxVersion)) then
-          begin
-            Result := chain;
+          try
+            StrToFloat(chain); //validation: raises if not a version string
+            Result     := chain;
             Break;
+          except
           end;
         end;
       end;

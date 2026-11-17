@@ -52,12 +52,10 @@ uses
 // we can now switch between using the native Delphi
 // resource settings, or the more powerful external
 // resource files
-{$R *.res}
+{$R 'UPXMiracle.res'}
 {$R 'resources.res'}
-
 begin
   Application.Initialize;
-  Application.MainFormOnTaskbar := True;
   Application.HelpFile := '';
   Application.ShowMainForm := False;
 	Application.CreateForm(TMainForm, MainForm);
