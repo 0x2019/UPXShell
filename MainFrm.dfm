@@ -152,7 +152,6 @@ object MainForm: TMainForm
       Height = 71
       BevelInner = bvLowered
       Color = clSilver
-      ParentBackground = False
       TabOrder = 0
       object imgGradient: TImage
         Left = 152
@@ -699,9 +698,6 @@ object MainForm: TMainForm
             Height = 121
             BevelOuter = bvLowered
             TabOrder = 0
-            DesignSize = (
-              273
-              121)
             object lblFNameCap: TLabel
               Left = 16
               Top = 32

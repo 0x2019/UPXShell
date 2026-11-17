@@ -61,7 +61,6 @@ object MultiForm: TMultiForm
       Width = 145
       Height = 21
       Style = csDropDownList
-      ItemIndex = 0
       TabOrder = 2
       Text = '*.exe (Executable)'
       Items.Strings = (
@@ -87,8 +86,6 @@ object MultiForm: TMultiForm
       'Press '#39'Del'#39' or right-click an item to skip it from being process' +
       'ed'
     Align = alClient
-    BevelInner = bvNone
-    BevelOuter = bvNone
     Color = 14872561
     Columns = <
       item

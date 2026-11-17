@@ -104,6 +104,9 @@ begin
   CursorPos.y         := 0;
   upxTotalProgress    := 0;
   MultiRepeat         := TStringList.Create;
+  BracketOffsetStart   := 0;
+  upxProgressBarStart  := 0;
+  upxProgressBarSize   := 0;
 
   while True do //Let's find where the progress starts
   begin
@@ -146,10 +149,10 @@ begin
       if IsMultiProgress then
       begin
         Split('/', Trim(Copy(Line, BracketOffsetStart - 7, 6)), MultiRepeat);
-        if (MultiRepeat.Count >= 2) and
-          TryStrToInt(MultiRepeat[0], MultiCurrentIndex) and
-          TryStrToInt(MultiRepeat[1], MultiTotalCount) then
+        if (MultiRepeat.Count >= 2) and IsNumeric(MultiRepeat[0]) and IsNumeric(MultiRepeat[1]) then
         begin
+          MultiCurrentIndex := StrToInt(MultiRepeat[0]);
+          MultiTotalCount   := StrToInt(MultiRepeat[1]);
           if upxTotalProgress = 0 then
           begin
             upxTotalProgress := (MultiTotalCount * upxProgressBarSize);

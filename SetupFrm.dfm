@@ -209,7 +209,6 @@ object SetupForm: TSetupForm
       Height = 21
       Hint = 'Select packer process priority'
       Style = csDropDownList
-      ItemIndex = 1
       TabOrder = 4
       Text = 'NORMAL (default)'
       Items.Strings = (
@@ -225,7 +224,6 @@ object SetupForm: TSetupForm
       Height = 21
       Hint = 'Select what to do with icons'
       Style = csDropDownList
-      ItemIndex = 0
       TabOrder = 5
       Text = 'Don'#39't compress'
       Items.Strings = (
@@ -307,8 +305,8 @@ object SetupForm: TSetupForm
       Width = 129
       Height = 17
       Hint = 
-        'Brute is an abbrevation for the options --best, --all-methods, -' +
-        '-all-filters and Additional compression=999999'
+        'Try all available compression methods and filters (--brute).'#13#10 +
+        'Slow; tries many combinations.'
       Caption = 'Brute'
       TabOrder = 0
       OnClick = chkBruteClick
@@ -332,10 +330,10 @@ object SetupForm: TSetupForm
       Width = 129
       Height = 17
       Hint = 
-        'Compress the program several times, using all available compress' +
-        'ion methods.'#13#10'This may improve the compression ratio in some cas' +
-        'es,'#13#10'but usually the default method gives the best results anywa' +
-        'y.'
+        'Compress the program several times, using all available preproce' +
+        'ssing filters.'#13#10'This may improve the compression ratio in some c' +
+        'ases,'#13#10'but usually the default filter gives the best results any' +
+        'way.'
       Caption = 'All Filters'
       TabOrder = 3
     end
@@ -365,7 +363,6 @@ object SetupForm: TSetupForm
       Height = 21
       Hint = 'Control the use of LZMA compression'
       Style = csDropDownList
-      ItemIndex = 0
       TabOrder = 5
       Text = 'Auto'
       Items.Strings = (
@@ -390,7 +387,6 @@ object SetupForm: TSetupForm
         'Copy preserves overlay data. Skip leaves files with an overlay un' +
         'changed. Strip removes overlay data and may break the program.'
       Style = csDropDownList
-      ItemIndex = 0
       TabOrder = 6
       Text = 'Copy'
       Items.Strings = (
@@ -404,8 +400,8 @@ object SetupForm: TSetupForm
       Width = 129
       Height = 17
       Hint = 
-        'Ultra Brute is almoste the same as Brute, but it tries more vari' +
-        'ants of compression.'
+        'Try even more compression variants (--ultra-brute).'#13#10'Very sl' +
+        'ow.'
       Caption = 'Ultra Brute'
       TabOrder = 1
       OnClick = chkUltraBruteClick

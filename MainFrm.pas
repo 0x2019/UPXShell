@@ -291,10 +291,7 @@ begin
   Strings := TStringList.Create;
   try
     History := ReadKey('History', ktString).Str;
-    Strings.StrictDelimiter := True;
-    Strings.Delimiter := '|';
-    Strings.QuoteChar := '"';
-    Strings.DelimitedText := History;
+    Split('|', History, Strings);
     if (Strings.Count = 1) and (Pos('|', History) = 0) and (Pos(',', History) > 0) then
     begin
       Strings.Clear;
@@ -335,11 +332,7 @@ var
 begin
   Strings := TStringList.Create;
   try
-    Strings.StrictDelimiter := True;
-    Strings.Delimiter := '|';
-    Strings.QuoteChar := '"';
-    History := ReadKey('History', ktString).Str;
-    Strings.DelimitedText := History;
+    Split('|', ReadKey('History', ktString).Str, Strings);
     if (Strings.Count = 1) and (Pos('|', History) = 0) and (Pos(',', History) > 0) then
     begin
       Strings.Clear;
@@ -350,7 +343,7 @@ begin
     if Strings.IndexOf(FileName) = -1 then // If item isn't already in the list
     begin
       Strings.Add(FileName);
-      Value.Str := Strings.DelimitedText;
+      Value.Str := JoinStrings('|', Strings);
       StoreKey('History', Value, ktString);
       AddNewMenuItem;
     end;
@@ -663,7 +656,7 @@ end;
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
   //Set the Global DecimalSeparator so it will be used everywhere since we need it to be a '.'
-  FormatSettings.DecimalSeparator := '.';
+  DecimalSeparator := '.';
 
   GetBuild; // Get the build information
   DrawGradient(imgGradient.Canvas, 255, imgGradient.Height,

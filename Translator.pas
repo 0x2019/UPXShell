@@ -87,7 +87,7 @@ procedure AddMessage(Msg: string);
   function RemoveQuotes(const InStr: string): string;
   begin
     //Commented out the '''' single quote detection. This has been requested.
-    if (InStr <> '') and CharInSet(InStr[1], ['"', '''']) then
+    if (InStr <> '') and (InStr[1] in ['"', '''']) then
     begin
       Result := copy(InStr, 2, length(InStr) - 2);
     end
@@ -341,9 +341,9 @@ begin
         begin
           if CompC is TComboBox then
           begin
-            if Prop = 'hint' then
+            if lowercase(Prop) = 'hint' then
             begin
-              TComboBox(CompC).Hint := Value;
+              TComboBox(CompC).Hint := StringReplace(Value, '\n', #13#10, [rfReplaceAll, rfIgnoreCase]);
             end
             else
             begin
@@ -352,6 +352,8 @@ begin
           end
           else
           begin
+            if lowercase(Prop) = 'hint' then
+              Value := StringReplace(Value, '\n', #13#10, [rfReplaceAll, rfIgnoreCase]);
             SetStringProperty(CompC, Prop, Value);
           end;
         end
